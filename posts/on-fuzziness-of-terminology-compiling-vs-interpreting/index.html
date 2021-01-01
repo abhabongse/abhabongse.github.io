@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <title>On Fuzziness of Terminology: Compiling vs Interpreting @ Personal Blog</title>
+
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="HandheldFriendly" content="True"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code&family=Kanit:ital,wght@0,300;0,600;1,300;1,600&family=Roboto:ital,wght@0,400;0,700;1,400;1,700&family=Sarabun:ital,wght@0,300;0,600;1,300;1,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" 
+          href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" 
+          integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" 
+          crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js" 
+            integrity="sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4" 
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" 
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" 
+          integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" 
+          crossorigin="anonymous">
+
+    <link rel="stylesheet" type="text/css" href="/theme/css/main.css"/>
+
+<link href="https://abhabongse.github.io/feeds/all.atom.xml"
+          type="application/atom+xml" rel="alternate" title="Personal Blog Full Atom Feed"/><link href="https://abhabongse.github.io/feeds/category-coding.atom.xml"
+          type="application/atom+xml" rel="alternate" title="Personal Blog Categories Atom Feed"/>
+
+
+
+        <meta name="tags" content="programming languages" />
+</head>
+<body id="index" class="post-template">
+<div class="site-wrapper">
+
+<header class="site-header">
+<div class="outer site-nav-main">
+    <div class="inner">
+<nav class="site-nav">
+    <div class="site-nav-left-wrapper">
+        <div class="site-nav-left">
+            <a class="site-nav-logo" href="/"><img src="/images/logo.png" alt="Personal Blog" /></a>
+            <div class="site-nav-content">
+                <ul class="nav">
+                        <li><a href="/pages/about">About</a></li>
+                        <li class="active"><a href="/category/coding">coding</a></li>
+                        <li><a href="/category/music">music</a></li>
+                        <li><a href="/category/others">others</a></li>
+                </ul>
+                    <span class="nav-post-title ">On Fuzziness of Terminology: Compiling vs Interpreting</span>
+            </div>
+        </div>
+    </div>
+    <div class="site-nav-right">
+        <div class="social-links">
+            <a class="social-link social-link-fb" href="https://facebook.com/abhabongse" title="Facebook" target="_blank" rel="noopener">
+<svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><path d="M16 0c8.837 0 16 7.163 16 16s-7.163 16-16 16S0 24.837 0 16 7.163 0 16 0zm5.204 4.911h-3.546c-2.103 0-4.443.885-4.443 3.934.01 1.062 0 2.08 0 3.225h-2.433v3.872h2.509v11.147h4.61v-11.22h3.042l.275-3.81h-3.397s.007-1.695 0-2.187c0-1.205 1.253-1.136 1.329-1.136h2.054V4.911z" /></svg>            </a>
+            <a class="social-link social-link-tw" href="https://twitter.com/abhabongse" title="Twitter" target="_blank" rel="noopener">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M30.063 7.313c-.813 1.125-1.75 2.125-2.875 2.938v.75c0 1.563-.188 3.125-.688 4.625a15.088 15.088 0 0 1-2.063 4.438c-.875 1.438-2 2.688-3.25 3.813a15.015 15.015 0 0 1-4.625 2.563c-1.813.688-3.75 1-5.75 1-3.25 0-6.188-.875-8.875-2.625.438.063.875.125 1.375.125 2.688 0 5.063-.875 7.188-2.5-1.25 0-2.375-.375-3.375-1.125s-1.688-1.688-2.063-2.875c.438.063.813.125 1.125.125.5 0 1-.063 1.5-.25-1.313-.25-2.438-.938-3.313-1.938a5.673 5.673 0 0 1-1.313-3.688v-.063c.813.438 1.688.688 2.625.688a5.228 5.228 0 0 1-1.875-2c-.5-.875-.688-1.813-.688-2.75 0-1.063.25-2.063.75-2.938 1.438 1.75 3.188 3.188 5.25 4.25s4.313 1.688 6.688 1.813a5.579 5.579 0 0 1 1.5-5.438c1.125-1.125 2.5-1.688 4.125-1.688s3.063.625 4.188 1.813a11.48 11.48 0 0 0 3.688-1.375c-.438 1.375-1.313 2.438-2.563 3.188 1.125-.125 2.188-.438 3.313-.875z"/></svg>            </a>
+            <a class="social-link social-link-fb" href="https://github.com/abhabongse" title="GitHub" target="_blank" rel="noopener">
+<svg xmlns="http://www.w3.org/2000/svg" height="32" width="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>            </a>
+        </div>
+        <a class="rss-button" href="https://abhabongse.github.io/feeds/all.atom.xml" title="RSS" target="_blank" rel="noopener">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><circle cx="6.18" cy="17.82" r="2.18"/><path d="M4 4.44v2.83c7.03 0 12.73 5.7 12.73 12.73h2.83c0-8.59-6.97-15.56-15.56-15.56zm0 5.66v2.83c3.9 0 7.07 3.17 7.07 7.07h2.83c0-5.47-4.43-9.9-9.9-9.9z"/></svg>        </a>
+    </div>
+</nav>    </div>
+</div></header>
+
+<main id="site-main" class="site-main outer">
+    <div class="inner">
+        <article class="post-full post ">
+
+            <header class="post-full-header">
+
+                <section class="post-full-tags">
+                    <a href="/category/coding">coding</a>
+                        <span class="bull">&nbsp;&bull;&nbsp;</span>
+                        <a href="/tag/programming-languages">programming languages</a>
+                </section>
+
+                <h1 class="post-full-title">On Fuzziness of Terminology: Compiling vs Interpreting</h1>
+
+
+                <div class="post-full-byline">
+                    <section class="post-full-byline-content">
+                        <ul class="author-list">
+                            <li class="author-list-item">
+                                <div class="author-card">
+
+                                    <img class="author-profile-image" src="/avatars/d59f180139c7ef4544b6f34b97ed942cf4f486a3e833683a9ca1e1b298e18ca8.jpg" alt="Abhabongse Janthong" />
+                                    <div class="author-info">
+                                            <div class="bio">
+                                                <h2>Abhabongse Janthong</h2>
+                                                <p>A programmer who tries to protect himself from his future self</p>
+                                                <p><a href="/author/abhabongse-janthong">More posts</a> by Abhabongse Janthong.</p>
+                                            </div>
+                                    </div>
+                                </div>
+
+                                <a href="/author/abhabongse-janthong" class="author-avatar">
+                                    <img class="author-profile-image" src="/avatars/d59f180139c7ef4544b6f34b97ed942cf4f486a3e833683a9ca1e1b298e18ca8.jpg" alt="Abhabongse Janthong" />
+                                </a>
+
+                            </li>
+                        </ul>
+
+                        <section class="post-full-byline-meta">
+                            <h4 class="author-name">Abhabongse Janthong</h4>
+                            <div class="byline-meta-content">
+                                Published: <time class="byline-meta-date published" datetime="2020-03-31T00:00:00+07:00">
+                                Tue 31 March 2020
+                            </time>
+                                <span class="bull">&bull;</span>
+                                15 min read
+                            </div>
+                        </section>
+
+                    </section>
+                </div>
+            </header>
+
+            <figure class="post-full-image">
+                <img sizes="(max-width: 800px) 400px,
+                            (max-width: 1170px) 1170px,
+                            2000px"
+                    src="/images/featured/bird-butt-at-sb-wharf.jpg"
+                    alt="On Fuzziness of Terminology: Compiling vs Interpreting"
+                />
+            </figure>
+
+            <section class="post-full-content">
+                <div class="post-content">
+                    <p>เมื่อเราต้องทำงานกับภาษาโปรแกรม (programming language) ภาษาต่าง&hairsp;ๆ มากกว่า 1 ภาษา
+เรามักจะพบว่าแต่ละภาษามีลักษณะที่แตกต่างกันออกไปเสมือนว่าแต่ละภาษาก็มีโลกเป็นของตัวเอง<span style="padding-left: 0.8rem;"></span>
+หนึ่งในความแตกต่างทั้งหลายที่เห็นได้ชัดเจนที่สุดก็คือ
+&hairsp;<em>ลักษณะของภาษาที่จะทำงานแบบ compile หรือว่าแบบ interpret</em>&hairsp;</p><p>ก่อนที่เราจะลงรายละเอียดเกี่ยวกับเรื่องนี้กัน ลองมาตอบคำถามต่อไปนี้ในใจก่อนครับ</p><blockquote><p>ภาษาโปรแกรมต่อไปนี้ เป็นภาษาที่ทำงานแบบ &hairsp;<strong>compile</strong>&hairsp; หรือว่าแบบ &hairsp;<strong>interpret</strong>&hairsp;?</p><ul><li>C&hairsp;/&hairsp;C++</li><li>Java</li><li>Python</li><li>JavaScript</li><li>Ruby</li><li>Golang</li><li>Rust</li><li>OCaml&hairsp;/&hairsp;ReasonML</li></ul><p>(ไม่ได้กล่าวถึงภาษาโปรดของใครก็ขออภัยนะครับ 5&thinsp;5&thinsp;5&thinsp;+)</p></blockquote><p>เรามาค่อย&hairsp;ๆ ไขปริศนากับคำถามเหล่านี้ไปพร้อม&hairsp;ๆ กันทีละสเต็ปกันครับ</p><h2><a class="headeranchor" id="bthsnthnaa-1-niyaamthiiphbaidthawaip"></a>บทสนทนา 1:&ensp;นิยามที่พบได้ทั่วไป<a class="headerlink" href="#bthsnthnaa-1-niyaamthiiphbaidthawaip" title="Permalink to this headline"></a></h2><p>นิยามของคำว่า &hairsp;<strong>compile</strong>&hairsp; กับ &hairsp;<strong>interpret</strong>&hairsp; ใน&hairsp;<em>มุมมองของคนทั่วไป</em>&hairsp;มักมีลักษณะดังนี้</p><blockquote><ul><li><p>“&hairsp;&hairsp;<strong>compile</strong>&hairsp; คือการที่เราต้องแปลงโค้ดจากที่เขียนไว้&thinsp;ให้กลายเป็น
+            executable file หรือ byte code ที่เราสามารถนำมารันต่อได้ภายหลัง</p><p>“เช่น การแปลงโค้ดภาษา C จากไฟล์ `*.c` ให้สุดท้ายกลายเป็นไฟล์ binary<label for="sidenote-7feb1e4af970" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sidenote-7feb1e4af970" class="margin-toggle"/><span class="sidenote">
+               ในกรณีนี้หมายรวมถึงทุกขั้นตอนในสายพานของการแปลงโค้ด
+               ได้แก่ compile, assemble, link และ load</span>
+            ที่เราสามารถ execute ได้โดยตรง</p><p>“อีกตัวอย่างหนึ่งคือการ compile จาก Java source code ให้กลายเป็น Java bytecode
+            ซึ่งจะถูกนำไปรันต่อด้วย Java virtual machine (JVM)&hairsp;”</p></li><li><p>“&hairsp;&hairsp;<strong>interpret</strong>&hairsp; คือการที่เรามีตัวแปลภาษาที่รันคำสั่งแต่ละขั้นตอนตามลำดับได้ทันที
+            โดยไม่จำเป็นต้องมีการแปลงไฟล์ก่อน</p><p>“เช่น การที่เรารันคำสั่ง JavaScript ได้จาก JavaScript console
+           หรือเรารันคำสั่ง Python ได้จาก interactive shell หรือแม้แต่ Jupyter&hairsp;”</p></li></ul></blockquote><p>แต่ว่านิยามข้างต้นมีข้อโต้แย้งจากตัวอย่างดังต่อไปนี้</p><ol><li><p>ภาษา JavaScript สมัยใหม่ (เช่น EMCAScript 2015 เป็นต้นไป)
+        สามารถรันได้โดยตรงโดยผ่าน NodeJS เวอร์ชันที่รองรับก็ได้ (ทำงานแบบ interpret ตามนิยามข้างต้น)</p><p>หรืออาจจะใช้ tool<label for="sidenote-7feb1e4af8b0" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sidenote-7feb1e4af8b0" class="margin-toggle"/><span class="sidenote">เช่น <a href="https://babeljs.io/">BabelJS</a></span>
+        เพื่อช่วยแปลงโค้ดจาก EMCAScript เวอร์ชันใหม่&hairsp;ๆ ไปยังเวอร์ชันที่เก่ากว่าที่สามารถรันภายใน browser ได้
+        (ซึ่งเรียกว่า &hairsp;<strong>source-to-source compilation</strong>&hairsp;)</p></li><li>แล้วยิ่งเมื่อเราพูดถึงภาษา Python เราจะจัดให้เป็นภาษาแบบใด?<span style="padding-left: 0.8rem;"></span>
+        ก่อนที่เราจะลงรายละเอียดตรงนี้ เราไปดูบทสนทนาถัดไปกันต่อเลยครับ</li></ol><h2><a class="headeranchor" id="bthsnthnaa-2-tawyaangphaasaa-python"></a>บทสนทนา 2:&ensp;ตัวอย่างภาษา Python<a class="headerlink" href="#bthsnthnaa-2-tawyaangphaasaa-python" title="Permalink to this headline"></a></h2><blockquote>“อ้าว ก็นี่ไง! เวลาเราเปิด Python interactive shell<label for="sidenote-7feb1e4af6d0" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sidenote-7feb1e4af6d0" class="margin-toggle"/><span class="sidenote">
+      เช่น การรันคำสั่ง <code>python</code> ขึ้นมาโดยตรง หรืออาจจะเป็นการใช้งาน IPython/Jupyter ก็ได้
+      ทั้งหมดนี้รวม&hairsp;ๆ เรียกว่า REPL (read–eval–print–loop)</span>
+    ขึ้นมา
+    ก็เห็นชัด&hairsp;ๆ ว่ามันเป็น interpreter ที่รันคำสั่งภาษา Python ได้โดยตรงเลย<span style="padding-left: 0.8rem;"></span>
+    &hairsp;<em>ไม่เห็น</em>&hairsp;จะต้องแปลงโค้ด Python เป็นอย่างอื่นก่อนเลยแล้วจึงจะรันได้”</blockquote><p>ประเด็นอยู่ที่ว่า การที่โปรแกรมเมอร์ผู้ใช้งาน&hairsp;<u>ไม่เห็น</u>&hairsp;โค้ดถูก compile ด้วยตาตัวเอง
+ก็&hairsp;<strong>ไม่ได้หมายความว่า</strong>&hairsp;ตัวโค้ด Python จะ&hairsp;<u>ไม่เกิด</u>&hairsp;การ compile เสียหน่อย<span style="padding-left: 0.8rem;"></span>
+ในความเป็นจริงแล้วนั้น Python ที่ใช้กันทั่วไป<label for="sidenote-7feb1e4af4f0" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sidenote-7feb1e4af4f0" class="margin-toggle"/><span class="sidenote">
+    ในกรณีนี้หมายถึง CPython implementation ของภาษา Python</span>
+จะมีขั้นตอนหนึ่งที่แปลงโค้ดจาก Python source code ให้กลายเป็น Python bytecode ก่อน<span style="padding-left: 0.8rem;"></span>
+แล้วจากนั้นจึงมี Python runtime ตัวหนึ่ง&thinsp;ที่คอยรันคำสั่งของ Python bytecode เหล่านั้นอีกทอดหนึ่ง</p><blockquote>“ก็ถูกแล้วนี่! สุดท้ายเราในฐานะโปรแกรมเมอร์ผู้ใช้งานก็รันโค้ด Python ได้โดยตรง
+    ไม่ต้อง compile เอง เป็นไปตามนิยามที่ว่ามาข้างต้นเลย”</blockquote><p>ในความเป็นจริง<a href="https://docs.python.org/3/library/py_compile.html">เราสามารถสร้าง bytecode จาก source code ของ Python เพื่อนำไปรันภายหลังได้</a> (คล้ายกับภาษา Java)<span style="padding-left: 0.8rem;"></span>
+แต่ interactive shell ของ Python ทำหน้าที่อำนวยความสะดวก (compile&thinsp;+&thinsp;execute) ให้กับโปรแกรมเมอร์เฉย&hairsp;ๆ 
+ซึ่งกระบวนการดังกล่าวไม่มีส่วนเกี่ยวข้องใด&hairsp;ๆ กับสเปกของภาษา Python เอง</p><blockquote><p>“แต่สุดท้ายก็ต้องใช้ Python runtime เพื่อรันโค้ด python ทีละคำสั่งอยู่ดีนี่?
+    ก็ต้องพูดได้สิว่า Python เป็นภาษาที่ทำงานแบบ interpret …</p><p>“แต่เดี๋ยวก่อนนะ! ถ้าแบบนี้เราก็ต้องจัดให้ Java เป็นภาษาแบบ interpret ด้วยเหมือนกันสิเนี่ยะ
+    มันเกิดอะไรขึ้นเนี่ยะ?”</p></blockquote><p>ใช่แล้ว นั่นก็เพราะนิยามของคำว่า &hairsp;<strong>compile</strong>&hairsp; และ &hairsp;<strong>interpret</strong>&hairsp; ข้างต้นยังไม่รัดกุมพอ<span style="padding-left: 0.8rem;"></span>
+เราจะมาลองให้นิยามของคำทั้ง 2 คำที่แม่นยำมากขึ้นกันในสเต็ปถัดไปกัน</p><hr /><h2><a class="headeranchor" id="niyaamkhngkhamwaa-compile-aela-interpret"></a>นิยามของคำว่า compile และ interpret<a class="headerlink" href="#niyaamkhngkhamwaa-compile-aela-interpret" title="Permalink to this headline"></a></h2><p>ต่อไปนี้เป็นนิยามที่ถูกต้องของคำว่า compile และ interpret</p><ul><li><p>&hairsp;<strong>compile</strong>&hairsp; คือการแปลงของโค้ดชุดหนึ่งไปยังโค้ดอีกชุดหนึ่ง
+        ซึ่งอาจจะเปลี่ยนจากภาษาโปรแกรมภาษาหนึ่งไปยังอีกภาษาหนึ่งก็ได้
+        หรือภาษาปลายทางจะยังคงเป็นภาษาเดิมก็ต่อ<span style="padding-left: 0.8rem;"></span>
+        แต่ประเด็นสำคัญคือโครงสร้างของโค้ด (syntax tree) ต้องเกิดการเปลี่ยนแปลงขึ้น
+        จึงจะนับว่าเป็นการ compile<label for="sidenote-7feb1e4afb20" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sidenote-7feb1e4afb20" class="margin-toggle"/><span class="sidenote">
+            ฉะนั้นแล้ว code formatter อาจจะจัดว่าเป็นการ compile หรือไม่ก็ได้ ขึ้นกับกรณี</span></p><p>ยกตัวอย่างเช่น การแปลงโค้ดภาษา C ให้กลายเป็น assembly code หรือ machine code<span style="padding-left: 0.8rem;"></span>
+        หรือการแปลง Java source code ให้กลายเป็น Java bytecode<span style="padding-left: 0.8rem;"></span>
+        หรือการแปลง EMCAScript 2015&hairsp;+
+        ให้กลายเป็น browser-compatible JavaScript<label for="sidenote-7feb1e4afb80" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sidenote-7feb1e4afb80" class="margin-toggle"/><span class="sidenote">โดยใช้ BabelJS เป็นต้น</span><span style="padding-left: 0.8rem;"></span>
+        และยังมีกรณีอื่น&hairsp;ๆ อีกมากมาย</p></li><li>&hairsp;<strong>interpret</strong>&hairsp; คือการใช้ virtual machine (VM)
+        เพื่อรันโค้ดบางอย่างบนเลเยอร์เหนือ machine ที่อยู่ระดับต่ำกว่า<span style="padding-left: 0.8rem;"></span>
+        เช่น การใช้ Python runtime<label for="sidenote-7feb1e4afc40" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sidenote-7feb1e4afc40" class="margin-toggle"/><span class="sidenote">คำว่า runtime นี้ถือว่าเป็น virtual machine อย่างหนึ่ง</span>
+        ในการรัน Python bytecode</li></ul><p>&hairsp;<strong>หมายเหตุ:</strong>&hairsp; หากเรากลับมาพิจารณาบทสนทนาแรกสุดอีกครั้งนึง จะพบว่า
+&thinsp;สิ่งที่แยกภาษา C และภาษา Java (ที่เชื่อว่าทำงานแบบ “compile”)
+ออกจากภาษา Python (ที่เชื่อว่าทำงานแบบ “interpret”)
+แท้จริงแล้วก็คือ&hairsp;<strong>เวลา</strong>&hairsp;ที่โค้ดของโปรแกรมเหล่านั้นถูก compile และ execute ต่างหาก<span style="padding-left: 0.8rem;"></span>
+กล่าวคือ</p><ul><li>สำหรับภาษา C นั้น&thinsp;เรานิยม compile โค้ดให้กลายเป็น executable binary ก่อน<span style="padding-left: 0.8rem;"></span>
+        แล้วหลังจากนั้นจึงมีการ execute โค้ดดังกล่าว
+        ซึ่งอาจเกิดขึ้นเมื่อใดก็ได้ และกี่ครั้งก็ได้</li><li>ภาษา Java ก็เช่นกัน<span style="padding-left: 0.8rem;"></span>
+        สำหรับการนำโค้ด Java ไปใช้งาน
+        เรามัก compile จาก Java source code ให้กลายเป็น bytecode ก่อน
+        แล้วจึงนำ bytecode นี้ไปใช้งานจริงกับ JVM ภายหลัง</li><li>ในกรณีของภาษา Python นั้น&thinsp;เรานิยมนำ Python source file ต้นฉบับ
+        &thinsp;เอาไปใช้งานจริงโดยตรง<span style="padding-left: 0.8rem;"></span>
+        ซึ่งโค้ดดังกล่าวจะถูก compile ให้กลายเป็น bytecode ทันที
+        &thinsp;ตอนที่โปรแกรมกำลังจะถูก execute ด้วย Python runtime เท่านั้น<label for="sidenote-7feb1e4afdc0" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sidenote-7feb1e4afdc0" class="margin-toggle"/><span class="sidenote">
+            ในบางกรณี อาจมีการแคช bytecode ที่ถูกสร้างขึ้นนี้ในรูปของไฟล์ <code>*.pyc</code> อีกด้วย</span></li></ul><hr /><h2><a class="headeranchor" id="bthsnthnaa-3-swmhmwknakptibatiniym"></a>บทสนทนา 3:&ensp;สวมหมวกนักปฏิบัตินิยม<a class="headerlink" href="#bthsnthnaa-3-swmhmwknakptibatiniym" title="Permalink to this headline"></a></h2><blockquote><p>“เนี่ยะ เวลาโปรแกรมเมอร์ใช้คำว่า compile กับ interpret เนี่ยะ
+    เรากำลังพูดถึงว่า เราต้องเอาโค้ดไป compile ก่อนใช้งานหรือเปล่า
+    หรือว่าเราเอาโค้ดนี้ไป interpret กันหน้างานเลย&hairsp;…</p><p>“จากมุมมองนี้ แล้วมันผิดตรงไหนที่เราจะบอกว่า Java เป็นภาษาแบบ compile
+    และ Python เป็นภาษาแบบ interpret?”</p></blockquote><p>ผู้เขียนเห็นด้วยในมุมมองที่ว่า หากเราสามารถหาวิธีใช้สื่อสารที่บรรลุผลตามที่ต้องการ ก็ถือว่าเป็นอันใช้ได้<span style="padding-left: 0.8rem;"></span>
+ไม่สนับสนุนให้มีใครมากำหนดว่า&thinsp;คำอะไรสามารถใช้งานแบบไหนได้บ้าง&thinsp;หรือไม่ได้บ้าง<label for="sidenote-7feb1e4afee0" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sidenote-7feb1e4afee0" class="margin-toggle"/><span class="sidenote">
+    ผู้เขียนไม่ใช่นักภาษาศาสตร์และไม่รู้เรื่องภาษาศาสตร์เพียงพอที่จะแสดงความคิดเห็นเกี่ยวกับเรื่องนี้ได้
+    เอาพอแค่นี้ก่อนละกัน เดี๋ยวมีภาษาศาสตร์ผ่านมาหวด</span></p><p>แต่ในขณะเดียวกัน หากเราพยายามชี้ชัดว่า&thinsp;ภาษาโปรแกรมภาษานั้นหรือภาษานี้
+จะต้องทำงานแบบ compile หรือว่า interpret &hairsp;<em>อย่างใดอย่างหนึ่ง</em>&hairsp;ไปเสียหมด<span style="padding-left: 0.8rem;"></span>
+นั่นก็อาจคาดเคลื่อนจากความเป็นจริงก็ได้ นั่นก็เพราะว่า
+&hairsp;<em>ภาษาโปรแกรมหลายภาษา</em>&hairsp; จะนำโค้ดไป &hairsp;<strong>compile ก่อนใช้งาน</strong>&hairsp;ก็ได้
+หรือจะ&hairsp;<strong>เอาไปใช้งานโดยตรงในทันที</strong>&hairsp;เลยก็ได้</p><ul><li>ตัวอย่างที่ชัดเจนที่สุดก็คือโค้ดที่เขียนตามมาตรฐานใหม่ของ JavaScript<label for="sidenote-7feb1e4b21f0" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sidenote-7feb1e4b21f0" class="margin-toggle"/><span class="sidenote">
+            จำพวก EMCAScript 2015&hairsp;+ เป็นต้น</span><span style="padding-left: 0.8rem;"></span>
+        ซึ่งเราอาจจะนำมารันโดยตรงด้วย NodeJS เลยก็ได้<span style="padding-left: 0.8rem;"></span>
+        หรืออาจจะใช้ BabelJS เพื่อ compile ให้กลายเป็น JavaScript
+        เวอร์ชันที่สามารถรันภายใน browser ก็ได้เช่นกัน</li><li><p>อีกตัวอย่างหนึ่งคือภาษา <a href="https://ocaml.org/">OCaml</a><label for="sidenote-7feb1e4b22b0" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sidenote-7feb1e4b22b0" class="margin-toggle"/><span class="sidenote">
+            และรวมถึงภาษา <a href="https://reasonml.github.io/">ReasonML</a> ที่เป็นพี่น้องด้วย</span>
+        ซึ่งมีหลาย option ให้เลือกดังต่อไปนี้</p><ol><li>สามารถ <a href="https://caml.inria.fr/pub/docs/manual-ocaml/comp.html">compile โค้ดให้เป็น bytecode</a>
+                แล้วจึง<a href="https://caml.inria.fr/pub/docs/manual-ocaml/runtime.html">รันด้วย runtime</a> ก็ได้</li><li>หรือจะ <a href="https://caml.inria.fr/pub/docs/manual-ocaml/native.html">compile ให้เป็น machine code</a> ก็ได้</li><li>ไม่เพียงแค่นั้น ปัจจุบันมี OCaml implementation ชื่อว่า
+                <a href="https://bucklescript.github.io/">BuckleScript</a>
+                ที่สามารถ compile โค้ด OCaml ให้รันบน JavaScript ได้อีกด้วย</li></ol></li></ul><h3><a class="headeranchor" id="khlaaypm"></a>คลายปม<a class="headerlink" href="#khlaaypm" title="Permalink to this headline"></a></h3><p>เพื่อคลายข้อสงสัย ขอเฉลย ณ ตรงนี้ว่า<span style="padding-left: 0.8rem;"></span>
+คำว่า compile และ interpret แท้จริงแล้ว&hairsp;<em>ไม่ได้</em>&hairsp;เอาไว้อธิบายตัวภาษาโปรแกรมโดยตรง 
+&hairsp;<strong>แต่เอาไว้อธิบาย implementation หนึ่ง&hairsp;ๆ ของภาษาโปรแกรมต่างหาก</strong>&hairsp;<span style="padding-left: 0.8rem;"></span>
+ไม่ใช่เรื่องแปลกที่ภาษาโปรแกรมภาษาเดียวกัน&hairsp;จะมี implementation ที่หลากหลายแตกต่างกันออกไป</p><p>ข้อสังเกตอย่างหนึ่งที่ผู้เขียนพบคือ เวลาโปรแกรมเมอร์พูดถึงภาษาโปรแกรมภาษาหนึ่ง
+เราอาจกำลังหมายถึง ecosystem ของภาษานั้น&hairsp;ๆ เสียมากกว่า
+(เช่น เวลาพูดถึง Python อาจจะหมายถึง CPython implementation ที่เป็นที่นิยม
+ซึ่งพูดรวมไปถึง Python language, Python bytecode, Python runtime เป็นต้น)<label for="sidenote-7feb1e4b2610" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sidenote-7feb1e4b2610" class="margin-toggle"/><span class="sidenote">
+    ดูเพิ่มเติม <a href="https://glossary.sil.org/term/metonymy">metonymy</a></span><span style="padding-left: 0.8rem;"></span>
+จึงเป็นเหตุให้เราใช้คำว่า compile หรือ interpret อย่างที่พบในปัจจุบัน</p><p>&hairsp;<strong>บทแทรก:</strong>&hairsp; จนถึงตรงนี้ ผู้เขียนใช้คำว่า Python bytecode ในบทความหลายครั้ง<span style="padding-left: 0.8rem;"></span>
+ในความเป็นจริงแล้ว Python bytecode ที่พูดถึงนี้&thinsp;เป็นเพียง 
+implementation detail ของ CPython ecosystem เท่านั้น
+ไม่ถือว่าเป็นส่วนหนึ่งของ Python ภาษาหลักแต่อย่างใด<label for="sidenote-7feb1e4b2730" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sidenote-7feb1e4b2730" class="margin-toggle"/><span class="sidenote">
+    implementation อื่นของ Python อย่างเช่น 
+    <a href="https://pypy.readthedocs.io/en/latest/interpreter.html">PyPy</a>
+    ก็มี bytecode ของตัวเองเช่นกัน<span style="padding-left: 0.8rem;"></span>
+    แต่ว่าเป็น&hairsp;<em>คนละตัว</em>&hairsp;กับของ CPython</span></p><h2><a class="headeranchor" id="bthsnthnaa-4-static-type-checking"></a>บทสนทนา 4:&ensp;static type checking<a class="headerlink" href="#bthsnthnaa-4-static-type-checking" title="Permalink to this headline"></a></h2><p>อีกปัจจัยหนึ่งที่ผู้คนมักนำมาเชื่อมโยงกับการจำแนกภาษาที่ทำงานแบบ compile หรือ interpret
+ก็คือ static type checking</p><blockquote><p>“อย่างที่รู้กันอยู่แล้วว่า ภาษาที่มีการ compile อย่างภาษา C หรือ Java
+    จะมีการตรวจสอบ type ของค่าต่าง&hairsp;ๆ ภายในโปรแกรมระหว่างโปรแกรมกำลัง compile</p><p>“แล้วทำไมภาษา Python ถึงทำไม่ได้? ทั้ง&hairsp;ๆ ที่มีการ compile ด้วยเหมือนกัน
+    &thinsp;หรือว่านิยามใหม่ของคำว่า compile ที่เสนอมาจะใช้ไม่ได้แล้วล่ะมั้ง&hairsp;…</p><p>“นี่ขนาดภาษา JavaScript ยังต้องมีการ extend syntax กลายเป็นภาษาใหม่อย่าง TypeScript<label for="sidenote-7feb1e4b2970" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sidenote-7feb1e4b2970" class="margin-toggle"/><span class="sidenote">
+        แน่นอนว่า TypeScript ไม่ใช่ JavaScript เพราะเป็น superset ของ JavaScript<span style="padding-left: 0.8rem;"></span>
+        นั่นหมายความว่าโค้ดบางอย่างใน TypeScript ไม่ใช่ valid JavaScript</span>
+    เพื่อแก้ปัญหาเรื่อง static type check เลย”</p></blockquote><p>แม้ว่า static type checking จะมีความเกี่ยวข้องกับ code compilation<span style="padding-left: 0.8rem;"></span>
+แต่ก็&hairsp;<em>ไม่จำเป็น</em>&hairsp;ที่ทั้งสองอย่างนี้จะต้องมาคู่กันเสมอไป</p><p>ก่อนอื่น อย่างที่ทราบกันดีว่า static type checking ที่เกิดขึ้นระหว่างที่โปรแกรมกำลัง compile นั้น
+จะช่วยทำให้เรามั่นใจได้ว่า&thinsp;การรันโปรแกรมที่ compile แล้ว
+จะไม่เกิด error อันเกิดจาก type ที่ผิดพลาดได้อีก<span style="padding-left: 0.8rem;"></span>
+และจึง&hairsp;<em>ไม่จำเป็น</em>&hairsp;ที่โปรแกรมต้องตรวจสอบความถูกต้องของ type ระหว่างที่รันโปรแกรมอีก<label for="sidenote-7feb1e4b2a30" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sidenote-7feb1e4b2a30" class="margin-toggle"/><span class="sidenote">
+    และอาจเกิดการทำ type erasure ได้ด้วย</span></p><p>แต่ว่าอันที่จริงแล้ว implementation ของภาษาหนึ่ง&hairsp;ๆ ก็สามารถเลือกที่จะโยกย้าย type checking
+จากตอน compilation time ไปยังตอน execution time ของโปรแกรมได้<label for="sidenote-7feb1e4b2a90" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sidenote-7feb1e4b2a90" class="margin-toggle"/><span class="sidenote">ยกเว้นบางกรณี</span><span style="padding-left: 0.8rem;"></span>
+นั่นหมายความว่า compiler ไม่จำเป็นว่าจะต้องมี type checking ในทุกกรณีเสมอไป<label for="sidenote-7feb1e4b2af0" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sidenote-7feb1e4b2af0" class="margin-toggle"/><span class="sidenote">
+    สังเกตว่าในบางกรณีของ JavaScript to JavaScript compiler อย่าง BabelJS
+    ก็ไม่มีการตรวจสอบ type เช่นกัน ก็ถือว่าเป็น compiler</span></p><p>&hairsp;<strong>หมายเหตุ:</strong>&hairsp; ในปัจจุบัน Python 3.5&hairsp;+ รองรับการกำหนด type ให้แก่ค่าต่าง&hairsp;ๆ ในโค้ดได้
+(เรียกว่า type annotation)<label for="sidenote-7feb1e4b2bb0" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sidenote-7feb1e4b2bb0" class="margin-toggle"/><span class="sidenote">อ่านรายละเอียดของ
+    <a href="https://docs.python.org/3/library/typing.html">type annotation</a> ได้</span><span style="padding-left: 0.8rem;"></span>
+ซึ่งโปรแกรมเมอร์ผู้ใช้งานสามารถเลือกที่จะ annotate type ให้แก่ค่าบางค่าในโค้ด
+หรือจะทั้งหมดของโค้ดก็ได้<label for="sidenote-7feb1e4b2c10" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sidenote-7feb1e4b2c10" class="margin-toggle"/><span class="sidenote">
+    ตอนนี้มีเครื่องมืออย่าง <a href="http://mypy-lang.org/">mypy</a> ที่สามารถใช้ข้อมูล type annotation
+    เพื่อช่วยเหลือโปรแกรมเมอร์ผู้ใช้งานในการตรวจสอบความถูกต้องของ type ในโปรแกรมได้</span><span style="padding-left: 0.8rem;"></span>
+แต่ CPython implementation จะไม่นำข้อมูลเกี่ยวกับ type เหล่านี้มาช่วยทำ type checking
+ตอนรันโปรแกรมแต่อย่างใด<label for="sidenote-7feb1e4b2cd0" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sidenote-7feb1e4b2cd0" class="margin-toggle"/><span class="sidenote">
+    แต่ type checking ตอน execution time แบบเดิมยังเกิดขึ้นตามปกติ</span><span style="padding-left: 0.8rem;"></span>
+ในอนาคตอาจจะมี implementation ของ python ตัวใหม่ที่จะอนุญาตให้โค้ด compile ผ่าน
+ก็ต่อเมื่อโปรแกรมผ่านการตรวจสอบ type เท่านั้น ก็เป็นได้</p><h2><a class="headeranchor" id="bthsnthnaa-5-khngaebbniiekhaaduukantncchbekm"></a>บทสนทนา 5:&ensp;ของแบบนี้เค้าดูกันตอนจบเกม<a class="headerlink" href="#bthsnthnaa-5-khngaebbniiekhaaduukantncchbekm" title="Permalink to this headline"></a></h2><blockquote><p>“ถึงแม้จะพยายามบอกว่าคำว่า compile กับ interpret เอาไว้ใช้อธิบาย implementation ของภาษาก็ตามที<span style="padding-left: 0.8rem;"></span>
+    แต่เอาจริง&hairsp;ๆ ไหม? ทำไมเราไม่ดูล่ะว่าภาษานั้น&hairsp;ๆ สามารถแปลงให้กลายเป็น machine code ได้เลย
+    หรือว่าจำเป็นต้องมี virtual machine มารันโปรแกรมนั้น ไม่ทางใดก็ทางหนึ่ง</p><p>“พูดง่าย&hairsp;ๆ คือเราตัดสินกันนี่แหละว่าภาษาทำงานแบบ compile หรือ interpret โดยดูจากว่า
+    โค้ดจะถูกรันโดย physical machine โดยตรง หรือว่าจะถูกรันด้วย virtual machine กันแน่”</p></blockquote><p>ประเด็นนี้สามารถโต้แย้งได้ง่ายมาก โดยดูจากตัวอย่างค้านจากภาษา OCaml/ReasonML
+ที่ได้กล่าวถึงไปแล้วก่อนหน้านี้</p><p>นอกเหนือจากนั้น บทสนทนาดังกล่าวได้แสดงถึงความพยายามที่จะสร้างเส้นสมมติ
+เพื่อแบ่ง virtual machine ออกจาก physical machine 
+โดยฝืนธรรมชาติของความหมายของคำว่า &hairsp;<strong>machine</strong>&hairsp; อย่างมาก
+ในบริบทของการศึกษาเกี่ยวกับระบบและสถาปัตยกรรมคอมพิวเตอร์</p><p>แท้ที่จริงแล้ว code ของโปรแกรมไม่ว่าอยู่ในรูปแบบหรือภาษาใด&hairsp;ๆ ก็ย่อมต้องการ machine ในการรันทั้งสิ้น<span style="padding-left: 0.8rem;"></span>
+สังเกตว่า physical machine นั้นทำหน้าที่ไม่ได้แตกต่างจาก virtual machine เลย 
+(ซึ่งก็คือการรันโค้ดเหมือน&hairsp;ๆ กัน)<label for="sidenote-7feb1e4b2eb0" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sidenote-7feb1e4b2eb0" class="margin-toggle"/><span class="sidenote">เราอาจเรียกว่า code และ machine เป็นของที่คู่กันก็ว่าได้</span></p><p>ฉะนั้นในบริบทนี้<span style="padding-left: 0.8rem;"></span> virtual machine และ physical machine
+เห็นจะแตกต่างกันแต่เพียง&hairsp;<strong>ระดับชั้นนามธรรม (layers of abstraction)</strong>&hairsp; ก็เท่านั้นเอง</p><p>&hairsp;<strong>บทแทรก:</strong>&hairsp; สมมติว่าเรามีโปรแกรมอันหนึ่ง ที่มีส่วนประกอบดังต่อไปนี้</p><ul><li>โค้ด <span class="math-inline">C</span> ที่เขียนด้วยภาษา <span class="math-inline">X_0</span></li><li>runtime <span class="math-inline">R_0</span> สำหรับภาษา <span class="math-inline">X_0</span> ที่เขียนด้วยภาษา <span class="math-inline">X_1</span></li><li>runtime <span class="math-inline">R_1</span> สำหรับภาษา <span class="math-inline">X_1</span> ที่เขียนด้วยภาษา <span class="math-inline">X_2</span></li><li><span class="math-inline">\ldots</span></li><li>runtime <span class="math-inline">R_{n-1}</span> สำหรับภาษา <span class="math-inline">X_{n-1}</span> ที่เขียนด้วยภาษา <span class="math-inline">X_n</span></li><li>และ runtime <span class="math-inline">R_n</span> สำหรับภาษา <span class="math-inline">X_n</span> ที่เขียนด้วย machine language</li></ul><p>เราจะสามารถพูดได้ว่าการนำโค้ด <span class="math-display">C^* := C+R_0+R_1+\ldots+R_n</span> ทั้งหมดมารวมกัน
+จะถือว่า <span class="math-inline">C^*</span> เป็นโค้ดที่เขียนด้วย machine language โดยตรงก็ได้<span style="padding-left: 0.8rem;"></span>
+เพราะว่าในมุมมองของ machine การรันโค้ด <span class="math-inline">C^*</span>
+นั้น&hairsp;<em>ไม่แตกต่าง</em>&hairsp;จากการรันโค้ดที่เขียนด้วย machine language โดยตรงนั่นเอง</p><hr /><h2><a class="headeranchor" id="thingthaay"></a>ทิ้งท้าย<a class="headerlink" href="#thingthaay" title="Permalink to this headline"></a></h2><p>คำว่า &hairsp;<strong>compile</strong>&hairsp; และ &hairsp;<strong>interpret</strong>&hairsp; ไม่ใช่คำขั้วตรงข้ามกัน<span style="padding-left: 0.8rem;"></span>
+ที่ผ่านมา เราพยายามตั้งคำถามและตอบคำถามที่มีลักษณะ binary<label for="sidenote-7feb1e4b7880" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sidenote-7feb1e4b7880" class="margin-toggle"/><span class="sidenote">
+    หมายถึงการมองโลกว่าบางอย่างมีแค่สองทางเลือก ไม่อย่างใดก็อย่างหนึ่ง</span>
+โดยไม่ได้เข้าใจบริบทว่าของบางอย่างมันไม่ได้อยู่ตรงข้ามกันแบบ binary อย่างที่เราตั้งสมมติฐานไว้</p><p>เพื่อขยายความตรงประเด็นนี้ มาดูกันว่าเรา compile หรือ interpret โค้ดกันไปทำไม</p><ul><li><p>เรา &hairsp;<strong>compile</strong>&hairsp; โค้ดไปเพื่อ</p><ol><li>ทำให้โค้ดสามารถนำไปรันใน platform ต่าง&hairsp;ๆ ได้</li><li>ช่วย optimize โค้ดให้โปรแกรมทำงานได้อย่างมีประสิทธิภาพมากขึ้น</li><li>ช่วยตรวจสอบความถูกต้องโปรแกรมในรูปแบบต่าง&hairsp;ๆ เช่น type checking เป็นต้น</li></ol></li><li>เรา &hairsp;<strong>interpret</strong>&hairsp; โค้ดไปเพื่อ&hairsp;… เอ่อ&hairsp;… ก็รันโปรแกรมไง</li></ul><p>เมื่อพิจารณา implementation ของภาษาโปรแกรมภาษาหนึ่ง&hairsp;ๆ 
+เราจะพบว่า อาจมีบางขั้นตอนเป็นการ compile และบางขั้นตอนเป็นการ interpret ก็ได้<span style="padding-left: 0.8rem;"></span>
+ยิ่งไปกว่านั้น บาง implementation ก็มีลักษณะเป็นลูกผสมที่มีขั้นตอนการ compile ผสมกับการ interpret โค้ด
+เช่น just-in-time (JIT) compiler เป็นต้น</p><p>จากที่เราพยายามพูดถึงคำว่า compile หรือ interpret จะเห็นได้ว่าการใช้คำสองคำนี้มีความกำกวม 
+ซึ่งผู้เขียนไม่ได้ต้องการรณรงค์ว่าเราควรใช้คำต่าง&hairsp;ๆ ให้ถูกต้อง
+มิหนำซ้ำ ความคลุมเครือของภาษาก็มีประโยชน์ของมันเอง<span style="padding-left: 0.8rem;"></span>
+เพียงแต่การศึกษาเกี่ยวกับ concept หรือนิยามนั่นก่อให้เกิดการพูดคุยกันที่น่าสนใจ
+จนกลายมาเป็นบทความนี้ครับ</p><h2><a class="headeranchor" id="side-story"></a>Side Story<a class="headerlink" href="#side-story" title="Permalink to this headline"></a></h2><p>ในช่วงหลายเดือนที่ผ่านมา ผู้เขียนได้เว้นว่างจากการเขียน blog ไป
+เนื่องจากพบว่าเครื่องมือในการสร้างเว็บไซต์เดิม ไม่ตอบโจทย์ความต้องการ (ที่เรื่องมากสุด&hairsp;ๆ) ของผู้เขียน<span style="padding-left: 0.8rem;"></span>
+จึงได้มีความพยายามที่จะย้ายสำมโนครัวจาก GatsbyJS มายัง Pelican ในโลก Python<span style="padding-left: 0.8rem;"></span>
+สิ่งที่ได้มีการปรับปรุง ประกอบได้ด้วย</p><ol><li>การแทรก sidenote<label for="sidenote-7feb1e4b7bb0" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sidenote-7feb1e4b7bb0" class="margin-toggle"/><span class="sidenote">ก็ข้อความแบบนี้นี่แหละ</span></li><li>การระบายสีพื้นหลังของโค้ดบางบรรทัด เพื่อเน้นส่วนสำคัญ</li><li>การเพิ่ม diff view เพื่อแสดงการเปลี่ยนแปลงของโค้ดจากเวอร์ชันหนึ่งสู่เวอร์ชันถัดไปแบบ incremental
+        (สามารถดูตัวอย่างได้จาก<a href="/posts/python-iterables-part-2-prepare-your-iterables">บทความที่แล้ว</a>)</li><li><p>ผู้เขียนได้สร้าง text pre-processor ขึ้นมาตัวหนึ่ง เพื่อทำให้การเขียนบทความมีความยืดหยุ่นสูงขึ้น<label for="sidenote-7feb1e4b7c40" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sidenote-7feb1e4b7c40" class="margin-toggle"/><span class="sidenote">
+            ตอนนี้โปรเจคนี่ยังอยู่ในระยะตั้งไข่ รอจนโปรเจคนี้เติบโตเต็มวัยแล้วจะมาเขียนถึงในอนาคต<span style="padding-left: 0.8rem;"></span>
+            ตอนนี้อ่านรายละเอียดได้ที่<a href="https://github.com/abhabongse/paxter/">หน้า GitHub ของโปรเจค Paxter</a>
+            </span><span style="padding-left: 0.8rem;"></span>
+        ยกตัวอย่างเช่น ผู้เขียนสามารถประกาศค่าและฟังก์ชันต่าง&hairsp;ๆ
+        ด้วยภาษา Python และใช้งานภายในบทความเดียวกันได้เลย ดังนี้</p><div class="highlight"><div class="highlight-wrapper"><table class="highlight-table"><tbody><tr class="highlight-line-noop"><td><pre><span class="o">@!##{</span></pre></td></tr><tr class="highlight-line-noop"><td><pre>    <span class="k">def</span> <span class="nf">emph</span><span class="p">(</span><span class="n">text</span><span class="p">):</span></pre></td></tr><tr class="highlight-line-noop"><td><pre>        <span class="k">return</span> <span class="sa">f</span><span class="s2">"&lt;em&gt;</span><span class="si">{</span><span class="n">text</span><span class="si">}</span><span class="s2">&lt;/em&gt;"</span></pre></td></tr><tr class="highlight-line-noop"><td><pre><br></pre></td></tr><tr class="highlight-line-noop"><td><pre>    <span class="n">name</span> <span class="o">=</span> <span class="s2">"John"</span></pre></td></tr><tr class="highlight-line-noop"><td><pre>    <span class="n">age</span> <span class="o">=</span> <span class="mi">21</span></pre></td></tr><tr class="highlight-line-noop"><td><pre>    <span class="n">ๆ</span> <span class="o">=</span> <span class="s1">'&amp;hairsp;ๆ'</span></pre></td></tr><tr class="highlight-line-noop"><td><pre><span class="o">}##</span></pre></td></tr><tr class="highlight-line-noop"><td><pre>My name is <span class="o">@</span><span class="nf">name</span> and <span class="o">@</span><span class="nf">emph</span><span class="o">{</span>I was <span class="o">@{</span>age - 1<span class="o">}</span> years old last year<span class="o">}</span>.</pre></td></tr><tr class="highlight-line-noop"><td><pre>ไม่ต้องเถียงกันว่าไม้ยมกต้องมีเว้นวรรคข้างหน้า 1 เคาะหรือไม่</pre></td></tr><tr class="highlight-line-noop"><td><pre>ในเมื่อเราเลือกปรับขนาดของเว้นวรรคได้สบาย<span class="o">@</span><span class="nf">ๆ</span></pre></td></tr></tbody></table></div></div><p>ซึ่งจะให้ผลลัพธ์เป็น</p><div class="highlight"><div class="highlight-wrapper"><table class="highlight-table"><tbody><tr class="highlight-line-noop"><td><pre><span></span>My name is John and &lt;em&gt;I was 20 years old last year&lt;/em&gt;.</pre></td></tr><tr class="highlight-line-noop"><td><pre>ไม่ต้องเถียงกันว่าไม้ยมกต้องมีเว้นวรรคข้างหน้า 1 เคาะหรือไม่</pre></td></tr><tr class="highlight-line-noop"><td><pre>ในเมื่อเราเลือกปรับขนาดของเว้นวรรคได้สบาย&amp;hairsp;ๆ</pre></td></tr></tbody></table></div></div></li></ol><p>โปรดอ่านรายละเอียดเพิ่มเติมเกี่ยวกับเว็บไซต์นี้ได้ท้ายหน้า <a href="/pages/about">about</a></p><p>ขอขอบคุณผู้อ่านที่สละเวลามาอ่านบล็อกที่เขียนอะไรก็ไม่รู้<span style="padding-left: 0.8rem;"></span>
+และขอขอบคุณผู้เสียสละ (โดยเฉพาะคุณ&hairsp;สรวีย์&hairsp;และคุณ&hairsp;กันตภณ) 
+ที่ช่วยอ่านต้นฉบับให้และ feedback จนได้บทความนี้ออกมาครับ</p><p>&#8203;<small>
+ป.ล. นี่อย่าให้เริ่มพูดถึงคำว่า functional, imperative, declarative, object-oriented, 
+yadda– yadda– yadda– อะไรพวกนี้อีกนะ 
+</small></p>
+                </div>
+            </section>
+
+        </article>
+    </div>
+</main>
+
+<aside class="read-next outer">
+    <div class="inner">
+        <div class="read-next-feed">
+                <article class="read-next-card">
+                    <header class="read-next-card-header">
+                        <h3><span>More in</span> <a href="/category/coding">coding</a></h3>
+                    </header>
+                    <div class="read-next-card-content">
+                        <ul>
+                            <li>
+                                <h4><a href="/posts/python-iterables-part-3-advanced-generator-functions">Advanced Generator Functions – Python Iterables Part 3 of N</a></h4>
+                                <div class="read-next-card-meta">
+                                    <p><time datetime="2020-04-15T00:00:00+07:00">Wed 15 April 2020</time> –
+                                        8 min</p>
+                                </div>
+                            </li>
+                            <li>
+                                <h4><a href="/posts/python-iterables-part-2-prepare-your-iterables">Prepare Your Iterables – Python Iterables Part 2 of N</a></h4>
+                                <div class="read-next-card-meta">
+                                    <p><time datetime="2019-07-17T00:00:00+07:00">Wed 17 July 2019</time> –
+                                        25 min</p>
+                                </div>
+                            </li>
+                            <li>
+                                <h4><a href="/posts/python-iterables-part-1">For Statements – Python Iterables Part 1 of N</a></h4>
+                                <div class="read-next-card-meta">
+                                    <p><time datetime="2019-06-05T00:00:00+07:00">Wed 05 June 2019</time> –
+                                        8 min</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <footer class="read-next-card-footer">
+                        <a href="/category/coding">
+                            See all 4 posts
+                        </a>
+                    </footer>
+                </article>
+
+                <article class="post-card post ">
+
+    <a class="post-card-image-link" href="/posts/python-iterables-part-3-advanced-generator-functions">
+        <img class="post-card-image"
+             sizes="(max-width: 1000px) 400px, 700px"
+             src="/images/featured/gajoen-jars.jpg"
+             alt="Advanced Generator Functions – Python Iterables Part 3 of N"
+        />
+    </a>
+
+    <div class="post-card-content">
+        <a class="post-card-content-link" href="/posts/python-iterables-part-3-advanced-generator-functions">
+            <header class="post-card-header">
+                <div class="post-card-primary-tag">coding</div>
+                <h2 class="post-card-title">Advanced Generator Functions – Python Iterables Part 3 of N</h2>
+            </header>
+            <section class="post-card-excerpt">
+                <p>หากผู้อ่านท่านใดเคยอ่านบทความตอนเก่าในซีรีส์นี้ ก็คงจะเคยหมดแรงกันมาแล้ว (ผู้เขียนเองก็หอบจนหมดเวลาไปหลายเดือนอะ คิดดูสิ)ในบทความนี้ ผู้เขียนเองก็จะลองนำเสนอเนื้อหาในรูปแบบใหม่&hairsp;ๆ ดูบ้างบทความนี้จะพูดถึงอะไรส่วนหนึ่งในบทความที่แล้ว ผู้เขียนกล่าวถึงการเขียน generator …</p>
+            </section>
+        </a>
+
+        <footer class="post-card-meta">
+            <ul class="author-list">
+                <li class="author-list-item">
+                    <div class="author-name-tooltip">Abhabongse Janthong</div>
+                    <a href="/author/abhabongse-janthong" class="static-avatar">
+                        <img class="author-profile-image"
+                             src="/avatars/d59f180139c7ef4544b6f34b97ed942cf4f486a3e833683a9ca1e1b298e18ca8.jpg"
+                             alt="Abhabongse Janthong"
+                        />
+                    </a>
+                </li>
+            </ul>
+            <div class="post-card-byline-content">
+                <span>
+                    Abhabongse Janthong
+                </span>
+                <span class="post-card-byline-date">
+                    <time datetime="2020-04-15T00:00:00+07:00">Wed 15 April 2020</time>
+                    <span class="bull">&bull;</span>
+                    8 min read
+                </span>
+            </div>
+        </footer>
+    </div>
+</article>
+
+                <article class="post-card post ">
+
+    <a class="post-card-image-link" href="/posts/python-iterables-part-2-prepare-your-iterables">
+        <img class="post-card-image"
+             sizes="(max-width: 1000px) 400px, 700px"
+             src="/images/featured/gajoen-knitted-cube.jpg"
+             alt="Prepare Your Iterables – Python Iterables Part 2 of N"
+        />
+    </a>
+
+    <div class="post-card-content">
+        <a class="post-card-content-link" href="/posts/python-iterables-part-2-prepare-your-iterables">
+            <header class="post-card-header">
+                <div class="post-card-primary-tag">coding</div>
+                <h2 class="post-card-title">Prepare Your Iterables – Python Iterables Part 2 of N</h2>
+            </header>
+            <section class="post-card-excerpt">
+                <p>บทความที่แล้วได้กล่าวถึง for statement ของภาษา Python ซึ่งจะต้องใช้งานควบคู่กับวัตถุประเภท iterable เท่านั้นบทความนี้จะพูดถึงเทคนิคการจัดการกับลำดับของข้อมูล (sequence of data) ที่จะช่วยให้ for statement อ่านเข้าใจง่าย ดูสละสลวยขึ้น และยังม …</p>
+            </section>
+        </a>
+
+        <footer class="post-card-meta">
+            <ul class="author-list">
+                <li class="author-list-item">
+                    <div class="author-name-tooltip">Abhabongse Janthong</div>
+                    <a href="/author/abhabongse-janthong" class="static-avatar">
+                        <img class="author-profile-image"
+                             src="/avatars/d59f180139c7ef4544b6f34b97ed942cf4f486a3e833683a9ca1e1b298e18ca8.jpg"
+                             alt="Abhabongse Janthong"
+                        />
+                    </a>
+                </li>
+            </ul>
+            <div class="post-card-byline-content">
+                <span>
+                    Abhabongse Janthong
+                </span>
+                <span class="post-card-byline-date">
+                    <time datetime="2019-07-17T00:00:00+07:00">Wed 17 July 2019</time>
+                    <span class="bull">&bull;</span>
+                    25 min read
+                </span>
+            </div>
+        </footer>
+    </div>
+</article>
+        </div>
+    </div>
+</aside>
+
+
+    <footer class="site-footer outer">
+        <div class="site-footer-content inner">
+            <section class="copyright">
+                <a href="/">Personal Blog</a>
+                &copy;
+2020&hairsp;&ndash;&hairsp;2021
+            </section>
+            <nav class="site-footer-nav">
+                <a href="/">Latest Posts</a>
+                <a href="https://facebook.com/abhabongse" target="_blank" rel="noopener">Facebook</a>
+                <a href="https://twitter.com/abhabongse" target="_blank" rel="noopener">Twitter</a>
+                <a href="https://github.com/abhabongse" target="_blank" rel="noopener">GitHub</a>
+            </nav>
+        </div>
+    </footer>
+</div>
+
+<script src="/theme/js/main.min.js"></script>
+<script>
+    ready(function () {
+        // Replace nav with title on scroll - start
+        Casper.stickyNavTitle({
+            navSelector: '.site-nav-main',
+            titleSelector: '.post-full-title',
+            activeClass: 'nav-post-title-active'
+        });
+        // Replace nav with title on scroll - end
+
+        // Hover on avatar
+        var hoverTimeout;
+        document.querySelectorAll('.author-list-item').forEach(function(listItem) {
+            listItem.addEventListener('mouseover', function(_) {
+                clearTimeout(hoverTimeout);
+                document.querySelectorAll('.author-card').forEach(function(cardItem) {
+                    cardItem.classList.remove('hovered');
+                });
+                listItem.querySelectorAll('.author-card').forEach(function(cardItem) {
+                    cardItem.classList.add('hovered');
+                });
+            });
+            listItem.addEventListener('mouseleave', function(_) {
+                hoverTimeout = setTimeout(function() {
+                    listItem.querySelectorAll('.author-card').forEach(function(cardItem) {
+                        cardItem.classList.remove('hovered');
+                    });
+                }, 800);
+            });
+        });
+    });
+</script>
+</body>
+</html>

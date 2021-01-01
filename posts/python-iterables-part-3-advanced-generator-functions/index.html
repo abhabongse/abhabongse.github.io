@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <title>Advanced Generator Functions – Python Iterables Part 3 of N @ Personal Blog</title>
+
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="HandheldFriendly" content="True"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code&family=Kanit:ital,wght@0,300;0,600;1,300;1,600&family=Roboto:ital,wght@0,400;0,700;1,400;1,700&family=Sarabun:ital,wght@0,300;0,600;1,300;1,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" 
+          href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" 
+          integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" 
+          crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js" 
+            integrity="sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4" 
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" 
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" 
+          integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" 
+          crossorigin="anonymous">
+
+    <link rel="stylesheet" type="text/css" href="/theme/css/main.css"/>
+
+<link href="https://abhabongse.github.io/feeds/all.atom.xml"
+          type="application/atom+xml" rel="alternate" title="Personal Blog Full Atom Feed"/><link href="https://abhabongse.github.io/feeds/category-coding.atom.xml"
+          type="application/atom+xml" rel="alternate" title="Personal Blog Categories Atom Feed"/>
+
+
+
+        <meta name="tags" content="python" />
+        <meta name="tags" content="iterators" />
+</head>
+<body id="index" class="post-template">
+<div class="site-wrapper">
+
+<header class="site-header">
+<div class="outer site-nav-main">
+    <div class="inner">
+<nav class="site-nav">
+    <div class="site-nav-left-wrapper">
+        <div class="site-nav-left">
+            <a class="site-nav-logo" href="/"><img src="/images/logo.png" alt="Personal Blog" /></a>
+            <div class="site-nav-content">
+                <ul class="nav">
+                        <li><a href="/pages/about">About</a></li>
+                        <li class="active"><a href="/category/coding">coding</a></li>
+                        <li><a href="/category/music">music</a></li>
+                        <li><a href="/category/others">others</a></li>
+                </ul>
+                    <span class="nav-post-title ">Advanced Generator Functions – Python Iterables Part 3 of N</span>
+            </div>
+        </div>
+    </div>
+    <div class="site-nav-right">
+        <div class="social-links">
+            <a class="social-link social-link-fb" href="https://facebook.com/abhabongse" title="Facebook" target="_blank" rel="noopener">
+<svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><path d="M16 0c8.837 0 16 7.163 16 16s-7.163 16-16 16S0 24.837 0 16 7.163 0 16 0zm5.204 4.911h-3.546c-2.103 0-4.443.885-4.443 3.934.01 1.062 0 2.08 0 3.225h-2.433v3.872h2.509v11.147h4.61v-11.22h3.042l.275-3.81h-3.397s.007-1.695 0-2.187c0-1.205 1.253-1.136 1.329-1.136h2.054V4.911z" /></svg>            </a>
+            <a class="social-link social-link-tw" href="https://twitter.com/abhabongse" title="Twitter" target="_blank" rel="noopener">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M30.063 7.313c-.813 1.125-1.75 2.125-2.875 2.938v.75c0 1.563-.188 3.125-.688 4.625a15.088 15.088 0 0 1-2.063 4.438c-.875 1.438-2 2.688-3.25 3.813a15.015 15.015 0 0 1-4.625 2.563c-1.813.688-3.75 1-5.75 1-3.25 0-6.188-.875-8.875-2.625.438.063.875.125 1.375.125 2.688 0 5.063-.875 7.188-2.5-1.25 0-2.375-.375-3.375-1.125s-1.688-1.688-2.063-2.875c.438.063.813.125 1.125.125.5 0 1-.063 1.5-.25-1.313-.25-2.438-.938-3.313-1.938a5.673 5.673 0 0 1-1.313-3.688v-.063c.813.438 1.688.688 2.625.688a5.228 5.228 0 0 1-1.875-2c-.5-.875-.688-1.813-.688-2.75 0-1.063.25-2.063.75-2.938 1.438 1.75 3.188 3.188 5.25 4.25s4.313 1.688 6.688 1.813a5.579 5.579 0 0 1 1.5-5.438c1.125-1.125 2.5-1.688 4.125-1.688s3.063.625 4.188 1.813a11.48 11.48 0 0 0 3.688-1.375c-.438 1.375-1.313 2.438-2.563 3.188 1.125-.125 2.188-.438 3.313-.875z"/></svg>            </a>
+            <a class="social-link social-link-fb" href="https://github.com/abhabongse" title="GitHub" target="_blank" rel="noopener">
+<svg xmlns="http://www.w3.org/2000/svg" height="32" width="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>            </a>
+        </div>
+        <a class="rss-button" href="https://abhabongse.github.io/feeds/all.atom.xml" title="RSS" target="_blank" rel="noopener">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><circle cx="6.18" cy="17.82" r="2.18"/><path d="M4 4.44v2.83c7.03 0 12.73 5.7 12.73 12.73h2.83c0-8.59-6.97-15.56-15.56-15.56zm0 5.66v2.83c3.9 0 7.07 3.17 7.07 7.07h2.83c0-5.47-4.43-9.9-9.9-9.9z"/></svg>        </a>
+    </div>
+</nav>    </div>
+</div></header>
+
+<main id="site-main" class="site-main outer">
+    <div class="inner">
+        <article class="post-full post ">
+
+            <header class="post-full-header">
+
+                <section class="post-full-tags">
+                    <a href="/category/coding">coding</a>
+                        <span class="bull">&nbsp;&bull;&nbsp;</span>
+                        <a href="/tag/python">python</a>
+                        <span class="bull">&nbsp;&bull;&nbsp;</span>
+                        <a href="/tag/iterators">iterators</a>
+                </section>
+
+                <h1 class="post-full-title">Advanced Generator Functions – Python Iterables Part 3 of N</h1>
+
+
+                <div class="post-full-byline">
+                    <section class="post-full-byline-content">
+                        <ul class="author-list">
+                            <li class="author-list-item">
+                                <div class="author-card">
+
+                                    <img class="author-profile-image" src="/avatars/d59f180139c7ef4544b6f34b97ed942cf4f486a3e833683a9ca1e1b298e18ca8.jpg" alt="Abhabongse Janthong" />
+                                    <div class="author-info">
+                                            <div class="bio">
+                                                <h2>Abhabongse Janthong</h2>
+                                                <p>A programmer who tries to protect himself from his future self</p>
+                                                <p><a href="/author/abhabongse-janthong">More posts</a> by Abhabongse Janthong.</p>
+                                            </div>
+                                    </div>
+                                </div>
+
+                                <a href="/author/abhabongse-janthong" class="author-avatar">
+                                    <img class="author-profile-image" src="/avatars/d59f180139c7ef4544b6f34b97ed942cf4f486a3e833683a9ca1e1b298e18ca8.jpg" alt="Abhabongse Janthong" />
+                                </a>
+
+                            </li>
+                        </ul>
+
+                        <section class="post-full-byline-meta">
+                            <h4 class="author-name">Abhabongse Janthong</h4>
+                            <div class="byline-meta-content">
+                                Published: <time class="byline-meta-date published" datetime="2020-04-15T00:00:00+07:00">
+                                Wed 15 April 2020
+                            </time>
+                                <span class="bull">&bull;</span>
+                                8 min read
+                            </div>
+                        </section>
+
+                    </section>
+                </div>
+            </header>
+
+            <figure class="post-full-image">
+                <img sizes="(max-width: 800px) 400px,
+                            (max-width: 1170px) 1170px,
+                            2000px"
+                    src="/images/featured/gajoen-jars.jpg"
+                    alt="Advanced Generator Functions – Python Iterables Part 3 of N"
+                />
+            </figure>
+
+            <section class="post-full-content">
+                <div class="post-content">
+                    <p>หากผู้อ่านท่านใดเคยอ่านบทความ<a href="/posts/python-iterables-part-2-prepare-your-iterables/">ตอนเก่า</a>ในซีรีส์นี้
+ก็คงจะเคยหมดแรงกันมาแล้ว (ผู้เขียนเองก็หอบจนหมดเวลาไปหลายเดือนอะ คิดดูสิ)</p><p>ในบทความนี้ ผู้เขียนเองก็จะลองนำเสนอเนื้อหาในรูปแบบใหม่&hairsp;ๆ ดูบ้าง</p><h2><a class="headeranchor" id="bthkhwaamniicchaphuudthuengaair"></a>บทความนี้จะพูดถึงอะไร<a class="headerlink" href="#bthkhwaamniicchaphuudthuengaair" title="Permalink to this headline"></a></h2><p><a href="/posts/python-iterables-part-2-prepare-your-iterables/#version-4-part-c-using-generator-function-for-adjacent_cells">ส่วนหนึ่งในบทความที่แล้ว</a>
+ผู้เขียนกล่าวถึงการเขียน generator function ขึ้นมาใช้งานเพื่อช่วยประมวลผลชุดลำดับของข้อมูลได้อย่างมีอิสระมากขึ้น
+ซึ่งได้ทั้งประสิทธิภาพการทำงานของโค้ดที่ดี (efficiency) มีความยืดหยุ่นในการใช้งาน (flexibility) 
+และทำให้โค้ดแกนกลางของเราอ่านเข้าใจง่ายคล้ายภาษามนุษย์มากขึ้น (readability)</p><p>ในบทความนี้เราจะมาโชว์ให้ดูวิธีการเขียน generator function ที่ซับซ้อนมากขึ้น<span style="padding-left: 0.8rem;"></span>
+แต่เราจะพูดเรื่องนามธรรมลอย&hairsp;ๆ ได้ไม่ชัดเจนหากเราไม่มีตัวอย่างของโจทย์ที่จะช่วยทำให้ผู้อ่านเห็นภาพได้ง่ายขึ้น<span style="padding-left: 0.8rem;"></span>
+ฉะนั้นแล้ว ขอแนะนำให้รู้จักกับโจทย์ตัวอย่างดังต่อไปนี้กันก่อนเลย</p><h2><a class="headeranchor" id="occhthy-tower-of-hanoi"></a>โจทย์ Tower of Hanoi<a class="headerlink" href="#occhthy-tower-of-hanoi" title="Permalink to this headline"></a></h2><p><a href="https://th.wikipedia.org/wiki/%E0%B8%AB%E0%B8%AD%E0%B8%84%E0%B8%AD%E0%B8%A2%E0%B8%AE%E0%B8%B2%E0%B8%99%E0%B8%AD%E0%B8%A2">โจทย์ Tower of Hanoi</a>
+นี้เป็นโจทย์คลาสสิกที่มักใช้เพื่อสอนไอเดียพื้นฐานเกี่ยวกับความสัมพันธ์เวียนเกิด (recursion) ซึ่งเป็นพื้นฐานในการเขียนโปรแกรมอย่างหนึ่ง</p><p>โจทย์มีอยู่ว่าเรามีเสาอยู่ 3 ต้น โดยที่เสาที่อยู่ทางซ้ายมือจะมีแผ่นจานเสียบอยู่ <span class="math-inline">n</span> แผ่น
+ซึ่งวางซ้อนเรียงกันจากขนาดเล็กไปหาใหญ่ ดังที่แสดงในรูปข้างล่างนี้ (ยกตัวอย่างสำหรับกรณี <span class="math-inline">n = 6</span>)</p><img src="/images/tower-of-hanoi/hanoi-1.png" alt="Initial state of Tower of Hanoi" /><p>เป้าหมายของเราคือ เราต้องการย้ายแผ่นจานทั้งหมด&thinsp;จากเสาที่อยู่ทางซ้ายมือ&thinsp;ไปยังเสาต้นทางด้านขวามือ
+โดยที่แผ่นจานทั้งหมดจะต้องวางซ้อนกันตามลำดับเดิม ดังรูปนี้</p><img src="/images/tower-of-hanoi/hanoi-3.png" alt="Goal state of Tower of Hanoi" /><p>โดยเรามีเงื่อนไขว่า “เราสามารถย้ายแผ่นจานได้คราวละ 1 แผ่นเท่านั้น
+โดยจะต้องหยิบแผ่นจานจากบนสุดของกอนจานจากเสาต้นหนึ่ง ไปวางทับบนกองจานที่อยู่ที่เสาอีกต้นหนึ่ง
+และห้ามวางแผ่นจานขนาดใหญ่บนจานที่ขนาดเล็กกว่าโดยเด็ดขาด”</p><img src="/images/tower-of-hanoi/hanoi-2.png" alt="Legal and illegal moves" /><p>หากผู้อ่านอยากลองเล่น สามารถลองค้นหา
+<a href="https://duckduckgo.com/?q=tower+of+hanoi">Tower of Hanoi แบบที่เป็น online game เล่นดูก่อนได้</a><span style="padding-left: 0.8rem;"></span>
+ในบทความนี้จะไม่ขอพูดถึงวิธีการแก้ปัญหานี้<label for="sidenote-7feb1bff3af0" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sidenote-7feb1bff3af0" class="margin-toggle"/><span class="sidenote">
+    มีบทความอื่น&hairsp;ๆ มากมายในอินเตอร์เน็ตที่พูดถึงหัวข้อนี้ได้ดีกว่าผู้เขียนเสียอีก</span>
+แต่ผู้เขียนจะขอกล่าวถึงเทคนิคในการ implement recursive solution ด้วย generator function 
+ซึ่งจะกล่าวเป็นลำดับถัดไป</p><h3><a class="headeranchor" id="1st-implementation-phimphkhamtbodytrng"></a>1st Implementation:&ensp;พิมพ์คำตอบโดยตรง<a class="headerlink" href="#1st-implementation-phimphkhamtbodytrng" title="Permalink to this headline"></a></h3><p>ก่อนอื่นเลย เราจะมาดู implementation อย่างง่ายที่สุด ซึ่งจะพิมพ์ move operation<label for="sidenote-7feb1bff3a30" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sidenote-7feb1bff3a30" class="margin-toggle"/><span class="sidenote">
+    move operation หมายถึง ขั้นตอนวิธีแต่ละขั้นตอนที่เราขยับแผ่นจานจากเสาต้นหนึ่งไปสู่อีกต้นหนึ่ง</span>
+ออกมาอย่างละหนึ่งบรรทัดจากภายในฟังก์ชันโดยตรง</p><div class="highlight"><div class="highlight-wrapper"><table class="highlight-table"><tbody><tr class="highlight-line-noop"><td><pre><span></span><span class="k">def</span> <span class="nf">tower_of_hanoi_v1</span><span class="p">(</span><span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">src</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span> <span class="n">aux</span><span class="p">):</span></pre></td></tr><tr class="highlight-line-noop"><td><pre>    <span class="sd">&quot;&quot;&quot;</span></pre></td></tr><tr class="highlight-line-noop"><td><pre><span class="sd">    Solves Tower of Hanoi problem with n discs by moving all discs </span></pre></td></tr><tr class="highlight-line-noop"><td><pre><span class="sd">    from the source rod to the destination rod while using </span></pre></td></tr><tr class="highlight-line-noop"><td><pre><span class="sd">    the auxiliary rod as the helper rod.</span></pre></td></tr><tr class="highlight-line-noop"><td><pre><span class="sd">    &quot;&quot;&quot;</span> </pre></td></tr><tr class="highlight-line-noop"><td><pre>    <span class="k">assert</span> <span class="n">n</span> <span class="o">&gt;=</span> <span class="mi">1</span></pre></td></tr><tr class="highlight-line-noop"><td><pre>    <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span></pre></td></tr><tr class="highlight-line-noop"><td><pre>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Move </span><span class="si">{</span><span class="n">src</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">dest</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></pre></td></tr><tr class="highlight-line-noop"><td><pre>    <span class="k">else</span><span class="p">:</span></pre></td></tr><tr class="highlight-line-noop"><td><pre>        <span class="n">tower_of_hanoi_v1</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">src</span><span class="p">,</span> <span class="n">aux</span><span class="p">,</span> <span class="n">dest</span><span class="p">)</span>   </pre></td></tr><tr class="highlight-line-noop"><td><pre>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Move </span><span class="si">{</span><span class="n">src</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">dest</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></pre></td></tr><tr class="highlight-line-noop"><td><pre>        <span class="n">tower_of_hanoi_v1</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">aux</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span> <span class="n">src</span><span class="p">)</span></pre></td></tr></tbody></table></div></div><div class="highlight"><div class="highlight-wrapper"><table class="highlight-table"><tbody><tr class="highlight-line-noop"><td><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tower_of_hanoi_v1</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">)</span></pre></td></tr><tr class="highlight-line-noop"><td><pre><span class="go">Move A to B</span></pre></td></tr><tr class="highlight-line-noop"><td><pre><span class="go">Move A to C</span></pre></td></tr><tr class="highlight-line-noop"><td><pre><span class="go">Move B to C</span></pre></td></tr><tr class="highlight-line-noop"><td><pre><span class="go">Move A to B</span></pre></td></tr><tr class="highlight-line-noop"><td><pre><span class="go">Move C to A</span></pre></td></tr><tr class="highlight-line-noop"><td><pre><span class="go">Move C to B</span></pre></td></tr><tr class="highlight-line-noop"><td><pre><span class="go">Move A to B</span></pre></td></tr></tbody></table></div></div><p>แม้ว่าโค้ดข้างตันจะถูกต้องและเรียบง่าย แต่ปัญหาใหญ่เลยคือเรา&hairsp;<em>ไม่สามารถ</em>&hairsp;เอาขั้นตอน move operation
+ที่ใช้แก้ปัญหา Tower of Hanoi จากฟังก์ชันดังกล่าว &hairsp;<em>ออกมาเป็นข้อมูลที่เอาไปใช้งานต่อได้</em>&hairsp;</p><p>ดังนั้นแล้วในสเต็ปถัดไปเราจะเปลี่ยน print statement ภายในฟังก์ชัน
+ให้กลายเป็นการสร้างและรีเทิร์นลำดับของ move operation ทั้งหมดแทน</p><h3><a class="headeranchor" id="2nd-implementation-sraang-list-maatkan"></a>2nd Implementation:&ensp;สร้าง list มาต่อกัน<a class="headerlink" href="#2nd-implementation-sraang-list-maatkan" title="Permalink to this headline"></a></h3><p>ในโค้ดชุดใหม่นี้ เราจะเปลี่ยนให้ฟังก์ชัน <code>tower_of_hanoi</code> คืนคำตอบเป็น list ของ move operation
+ซึ่งเป็นคู่อันดับของเสาสองเสาว่า&thinsp;จะต้องย้ายแผ่นจานจากเสาต้นใดไปยังเสาต้นใดตามลำดับ</p><div class="highlight"><input type="checkbox" id="140647763752608" class="highlight-checkbox-input"/><label for="140647763752608" class="highlight-checkbox-label">Display Diff</label><div class="highlight-wrapper"><table class="highlight-table"><tbody><tr class="highlight-line-noop"><td><pre><span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Tuple</span></pre></td></tr><tr class="highlight-line-noop"><td><pre><br></pre></td></tr><tr class="highlight-line-delete"><td><pre><span class="k">def</span> <span class="nf">tower_of_hanoi_v1</span><span class="p">(</span><span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">src</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span> <span class="n">aux</span><span class="p">):</span></pre></td></tr><tr class="highlight-line-insert"><td><pre><span class="k">def</span> <span class="nf">tower_of_hanoi_v2</span><span class="p">(</span><span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">src</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span> <span class="n">aux</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span></pre></td></tr><tr class="highlight-line-noop"><td><pre>    <span class="sd">&quot;&quot;&quot;</span></pre></td></tr><tr class="highlight-line-noop"><td><pre><span class="sd">    Solves Tower of Hanoi problem with n discs by moving all discs </span></pre></td></tr><tr class="highlight-line-noop"><td><pre><span class="sd">    from the source rod to the destination rod while using </span></pre></td></tr><tr class="highlight-line-noop"><td><pre><span class="sd">    the auxiliary rod as the helper rod.</span></pre></td></tr><tr class="highlight-line-noop"><td><pre><br></pre></td></tr><tr class="highlight-line-noop"><td><pre><span class="sd">    The result is a list of tuple pairs specifying the sequence </span></pre></td></tr><tr class="highlight-line-noop"><td><pre><span class="sd">    of move operations (from_rod, to_rod).</span></pre></td></tr><tr class="highlight-line-noop"><td><pre><span class="sd">    &quot;&quot;&quot;</span> </pre></td></tr><tr class="highlight-line-noop"><td><pre>    <span class="k">assert</span> <span class="n">n</span> <span class="o">&gt;=</span> <span class="mi">1</span></pre></td></tr><tr class="highlight-line-noop"><td><pre>    <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span></pre></td></tr><tr class="highlight-line-delete"><td><pre>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Move </span><span class="si">{</span><span class="n">src</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">dest</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></pre></td></tr><tr class="highlight-line-insert"><td><pre>        <span class="n">ops</span> <span class="o">=</span> <span class="p">[(</span><span class="n">src</span><span class="p">,</span> <span class="n">dest</span><span class="p">)]</span></pre></td></tr><tr class="highlight-line-noop"><td><pre>    <span class="k">else</span><span class="p">:</span></pre></td></tr><tr class="highlight-line-delete"><td><pre>        <span class="n">tower_of_hanoi_v1</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">src</span><span class="p">,</span> <span class="n">aux</span><span class="p">,</span> <span class="n">dest</span><span class="p">)</span>   </pre></td></tr><tr class="highlight-line-delete"><td><pre>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Move </span><span class="si">{</span><span class="n">src</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">dest</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></pre></td></tr><tr class="highlight-line-delete"><td><pre>        <span class="n">tower_of_hanoi_v1</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">aux</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span> <span class="n">src</span><span class="p">)</span></pre></td></tr><tr class="highlight-line-insert"><td><pre>        <span class="n">ops</span> <span class="o">=</span> <span class="n">tower_of_hanoi_v2</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">src</span><span class="p">,</span> <span class="n">aux</span><span class="p">,</span> <span class="n">dest</span><span class="p">)</span></pre></td></tr><tr class="highlight-line-insert"><td><pre>        <span class="n">ops</span> <span class="o">+=</span> <span class="p">[(</span><span class="n">src</span><span class="p">,</span> <span class="n">dest</span><span class="p">)]</span></pre></td></tr><tr class="highlight-line-insert"><td><pre>        <span class="n">ops</span> <span class="o">+=</span> <span class="n">tower_of_hanoi_v2</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">aux</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span> <span class="n">src</span><span class="p">)</span></pre></td></tr><tr class="highlight-line-insert"><td><pre>    <span class="k">return</span> <span class="n">ops</span></pre></td></tr></tbody></table></div></div><div class="highlight"><div class="highlight-wrapper"><table class="highlight-table"><tbody><tr class="highlight-line-noop"><td><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ops</span> <span class="o">=</span> <span class="n">tower_of_hanoi_v2</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">)</span></pre></td></tr><tr class="highlight-line-noop"><td><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">ops</span></pre></td></tr><tr class="highlight-line-noop"><td><pre><span class="go">[(&#39;A&#39;, &#39;B&#39;), (&#39;A&#39;, &#39;C&#39;), (&#39;B&#39;, &#39;C&#39;), (&#39;A&#39;, &#39;B&#39;), (&#39;C&#39;, &#39;A&#39;), (&#39;C&#39;, &#39;B&#39;), (&#39;A&#39;, &#39;B&#39;)]</span></pre></td></tr><tr class="highlight-line-noop"><td><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">src</span><span class="p">,</span> <span class="n">dest</span> <span class="ow">in</span> <span class="n">ops</span><span class="p">:</span></pre></td></tr><tr class="highlight-line-noop"><td><pre><span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Move </span><span class="si">{</span><span class="n">src</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">dest</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>   </pre></td></tr><tr class="highlight-line-noop"><td><pre><span class="go">Move A to B</span></pre></td></tr><tr class="highlight-line-noop"><td><pre><span class="go">Move A to C</span></pre></td></tr><tr class="highlight-line-noop"><td><pre><span class="go">Move B to C</span></pre></td></tr><tr class="highlight-line-noop"><td><pre><span class="go">Move A to B</span></pre></td></tr><tr class="highlight-line-noop"><td><pre><span class="go">Move C to A</span></pre></td></tr><tr class="highlight-line-noop"><td><pre><span class="go">Move C to B</span></pre></td></tr><tr class="highlight-line-noop"><td><pre><span class="go">Move A to B</span></pre></td></tr></tbody></table></div></div><p>ดูเผิน&hairsp;ๆ ว่าโค้ดใหม่นี้จะไม่มีปัญหาอะไร แต่หากเราลองวิเคราะห์โค้ดอย่างถี่ถ้วน
+จะพบว่า <code>tower_of_hanoi_v2</code> ใช้เวลารันเป็น <span class="math-inline">O(n \cdot 2^n)</span>
+เมื่อเทียบกับโค้ดเก่าอย่าง <code>tower_of_hanoi_v1</code> ซึ่งใช้เวลาเพียง <span class="math-inline">O(2^n)</span> เท่านั้น<label for="sidenote-7feb1bfeb250" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sidenote-7feb1bfeb250" class="margin-toggle"/><span class="sidenote">
+    แต่หากผู้อ่านลองรันเองจริง อาจให้ผลลัพธ์ที่ต่างออกไป 
+    ตรงนี้เนื่องจาก bottleneck ที่เกิดจากการเขียนข้อความลงใน standard output buffer</span><span style="padding-left: 0.8rem;"></span>
+นั่นก็เพราะว่าการนำ list มาต่อกัน&hairsp;<em>แต่ละครั้ง</em>&hairsp;มีค่าใช้จ่ายเป็นเวลาแบบเชิงเส้น (linear) ไม่ใช่ค่าคงที่ (constant)</p><div class="highlight"><div class="highlight-wrapper"><table class="highlight-table"><tbody><tr class="highlight-line-noop"><td><pre><span></span>    <span class="k">else</span><span class="p">:</span></pre></td></tr><tr class="highlight-line-noop"><td><pre>        <span class="n">ops</span> <span class="o">=</span> <span class="n">tower_of_hanoi</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">src</span><span class="p">,</span> <span class="n">aux</span><span class="p">,</span> <span class="n">dest</span><span class="p">)</span></pre></td></tr><tr class="highlight-line-noop"><td><pre>        <span class="n">ops</span> <span class="o">+=</span> <span class="p">[(</span><span class="n">src</span><span class="p">,</span> <span class="n">dest</span><span class="p">)]</span></pre></td></tr><tr class="highlight-line-annotated"><td><pre>        <span class="n">ops</span> <span class="o">+=</span> <span class="n">tower_of_hanoi</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">aux</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span> <span class="n">src</span><span class="p">)</span></pre></td></tr><tr class="highlight-line-noop"><td><pre>    <span class="k">return</span> <span class="n">ops</span></pre></td></tr></tbody></table></div></div><p>เรามีทางแก้อยู่หลายวิธีด้วยกัน วิธีที่ได้ผลทันทีคือ&thinsp;เราย้ายไปใช้งาน linked list แทน
+ซึ่งจะมีค่าใช้จ่ายในการนำ list มาต่อกันเป็น constant<span style="padding-left: 0.8rem;"></span>
+แต่ว่าการบริหารจัดการ linked list ในภาษา Python ไม่สามารถทำได้ง่าย</p><p>ดังนั้นในสเต็ปถัดไป เราจะปรับเปลี่ยนฟังก์ชันให้มีการส่ง accumulator<label for="sidenote-7feb1bfeb190" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sidenote-7feb1bfeb190" class="margin-toggle"/><span class="sidenote">
+    accumulator เป็นศัพท์เทคนิคที่หมายถึงลิสต์ที่เอาไว้เก็บสะสมข้อมูล
+    โดยเฉพาะอย่างยิ่งในการทำงานของ recursive function</span>
+ข้ามไป-มาหากันใน recursion เพื่อเก็บสะสม move operation ที่พบตามลำดับ</p><h3><a class="headeranchor" id="3rd-implementation-sraang-list-ekbsasm"></a>3rd Implementation:&ensp;สร้าง list เก็บสะสม<a class="headerlink" href="#3rd-implementation-sraang-list-ekbsasm" title="Permalink to this headline"></a></h3><p>ในโค้ดชุดใหม่นี้ เราจะสร้างฟังก์ชันอีกอัน ชื่อว่า <code>_rec_tower_of_hanoi</code>
+เพื่อทำ recursion แทนฟังก์ชัน <code>tower_of_hanoi</code> หลัก
+และอนุญาตให้มีการส่งต่อ accumulator ข้ามไป-มาหากันได้</p><div class="highlight"><input type="checkbox" id="140647763718880" class="highlight-checkbox-input"/><label for="140647763718880" class="highlight-checkbox-label">Display Diff</label><div class="highlight-wrapper"><table class="highlight-table"><tbody><tr class="highlight-line-noop"><td><pre><span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Tuple</span></pre></td></tr><tr class="highlight-line-noop"><td><pre><br></pre></td></tr><tr class="highlight-line-delete"><td><pre><span class="k">def</span> <span class="nf">tower_of_hanoi_v2</span><span class="p">(</span><span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">src</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span> <span class="n">aux</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span></pre></td></tr><tr class="highlight-line-insert"><td><pre><span class="k">def</span> <span class="nf">tower_of_hanoi_v3</span><span class="p">(</span><span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">src</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span> <span class="n">aux</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span></pre></td></tr><tr class="highlight-line-noop"><td><pre>    <span class="sd">&quot;&quot;&quot;</span></pre></td></tr><tr class="highlight-line-noop"><td><pre><span class="sd">    Solves Tower of Hanoi problem with n discs by moving all discs </span></pre></td></tr><tr class="highlight-line-noop"><td><pre><span class="sd">    from the source rod to the destination rod while using </span></pre></td></tr><tr class="highlight-line-noop"><td><pre><span class="sd">    the auxiliary rod as the helper rod.</span></pre></td></tr><tr class="highlight-line-noop"><td><pre><br></pre></td></tr><tr class="highlight-line-noop"><td><pre><span class="sd">    The result is a list of tuple pairs specifying the sequence </span></pre></td></tr><tr class="highlight-line-noop"><td><pre><span class="sd">    of move operations (from_rod, to_rod).</span></pre></td></tr><tr class="highlight-line-noop"><td><pre><span class="sd">    &quot;&quot;&quot;</span> </pre></td></tr><tr class="highlight-line-insert"><td><pre>    <span class="n">accm</span> <span class="o">=</span> <span class="p">[]</span></pre></td></tr><tr class="highlight-line-insert"><td><pre>    <span class="n">_rec_tower_of_hanoi</span><span class="p">(</span><span class="n">accm</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">src</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span> <span class="n">aux</span><span class="p">)</span></pre></td></tr><tr class="highlight-line-insert"><td><pre>    <span class="k">return</span> <span class="n">accm</span></pre></td></tr><tr class="highlight-line-insert"><td><pre><br></pre></td></tr><tr class="highlight-line-insert"><td><pre><span class="k">def</span> <span class="nf">_rec_tower_of_hanoi</span><span class="p">(</span><span class="n">accm</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">]],</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">src</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span> <span class="n">aux</span><span class="p">):</span></pre></td></tr><tr class="highlight-line-noop"><td><pre>    <span class="k">assert</span> <span class="n">n</span> <span class="o">&gt;=</span> <span class="mi">1</span></pre></td></tr><tr class="highlight-line-noop"><td><pre>    <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span></pre></td></tr><tr class="highlight-line-delete"><td><pre>        <span class="n">ops</span> <span class="o">=</span> <span class="p">[(</span><span class="n">src</span><span class="p">,</span> <span class="n">dest</span><span class="p">)]</span></pre></td></tr><tr class="highlight-line-insert"><td><pre>        <span class="n">accm</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">src</span><span class="p">,</span> <span class="n">dest</span><span class="p">))</span></pre></td></tr><tr class="highlight-line-noop"><td><pre>    <span class="k">else</span><span class="p">:</span></pre></td></tr><tr class="highlight-line-delete"><td><pre>        <span class="n">ops</span> <span class="o">=</span> <span class="n">tower_of_hanoi_v2</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">src</span><span class="p">,</span> <span class="n">aux</span><span class="p">,</span> <span class="n">dest</span><span class="p">)</span></pre></td></tr><tr class="highlight-line-delete"><td><pre>        <span class="n">ops</span> <span class="o">+=</span> <span class="p">[(</span><span class="n">src</span><span class="p">,</span> <span class="n">dest</span><span class="p">)]</span></pre></td></tr><tr class="highlight-line-delete"><td><pre>        <span class="n">ops</span> <span class="o">+=</span> <span class="n">tower_of_hanoi_v2</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">aux</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span> <span class="n">src</span><span class="p">)</span></pre></td></tr><tr class="highlight-line-insert"><td><pre>        <span class="n">_rec_tower_of_hanoi</span><span class="p">(</span><span class="n">accm</span><span class="p">,</span> <span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">src</span><span class="p">,</span> <span class="n">aux</span><span class="p">,</span> <span class="n">dest</span><span class="p">)</span>   </pre></td></tr><tr class="highlight-line-insert"><td><pre>        <span class="n">accm</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">src</span><span class="p">,</span> <span class="n">dest</span><span class="p">))</span></pre></td></tr><tr class="highlight-line-insert"><td><pre>        <span class="n">_rec_tower_of_hanoi</span><span class="p">(</span><span class="n">accm</span><span class="p">,</span> <span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">aux</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span> <span class="n">src</span><span class="p">)</span></pre></td></tr></tbody></table></div></div><div class="highlight"><div class="highlight-wrapper"><table class="highlight-table"><tbody><tr class="highlight-line-noop"><td><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ops</span> <span class="o">=</span> <span class="n">tower_of_hanoi_v3</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">)</span></pre></td></tr><tr class="highlight-line-noop"><td><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">ops</span></pre></td></tr><tr class="highlight-line-noop"><td><pre><span class="go">[(&#39;A&#39;, &#39;B&#39;), (&#39;A&#39;, &#39;C&#39;), (&#39;B&#39;, &#39;C&#39;), (&#39;A&#39;, &#39;B&#39;), (&#39;C&#39;, &#39;A&#39;), (&#39;C&#39;, &#39;B&#39;), (&#39;A&#39;, &#39;B&#39;)]</span></pre></td></tr><tr class="highlight-line-noop"><td><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">src</span><span class="p">,</span> <span class="n">dest</span> <span class="ow">in</span> <span class="n">ops</span><span class="p">:</span></pre></td></tr><tr class="highlight-line-noop"><td><pre><span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Move </span><span class="si">{</span><span class="n">src</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">dest</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>   </pre></td></tr><tr class="highlight-line-noop"><td><pre><span class="go">Move A to B</span></pre></td></tr><tr class="highlight-line-noop"><td><pre><span class="go">Move A to C</span></pre></td></tr><tr class="highlight-line-noop"><td><pre><span class="go">Move B to C</span></pre></td></tr><tr class="highlight-line-noop"><td><pre><span class="go">Move A to B</span></pre></td></tr><tr class="highlight-line-noop"><td><pre><span class="go">Move C to A</span></pre></td></tr><tr class="highlight-line-noop"><td><pre><span class="go">Move C to B</span></pre></td></tr><tr class="highlight-line-noop"><td><pre><span class="go">Move A to B</span></pre></td></tr></tbody></table></div></div><p>โค้ด <code>tower_of_hanoi_v3</code> นี้สามารถทำงานให้ผลลัพธ์ได้เหมือนกัน <code>tower_of_hanoi_v2</code>
+และมีประสิทธิภาพดีเทียบเท่า <code>tower_of_hanoi_v1</code> ได้สำเร็จ</p><p>เอาล่ะ พูดมาเสียยาว แต่เรายังไม่ได้เสนอวิธีแก้ปัญหา Tower of Hanoi โดยใช้ generator function เลย<span style="padding-left: 0.8rem;"></span>
+เรามาดูกันดีกว่าว่าหากเราต้องการให้ฟังก์ชัน <code>tower_of_hanoi</code> รีเทิร์นลำดับของ move operation 
+ออกมาเป็นวัตถุ iterable จะทำได้อย่างไร</p><h3><a class="headeranchor" id="4th-implementation-aich-generator-function"></a>4th Implementation:&ensp;ใช้ generator function<a class="headerlink" href="#4th-implementation-aich-generator-function" title="Permalink to this headline"></a></h3><p>เราข้ามไปดูโค้ดกันก่อนเลย</p><div class="highlight"><div class="highlight-wrapper"><table class="highlight-table"><tbody><tr class="highlight-line-noop"><td><pre><span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Iterator</span><span class="p">,</span> <span class="n">Tuple</span></pre></td></tr><tr class="highlight-line-noop"><td><pre><br></pre></td></tr><tr class="highlight-line-noop"><td><pre><span class="k">def</span> <span class="nf">tower_of_hanoi_v4</span><span class="p">(</span><span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">src</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span> <span class="n">aux</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span></pre></td></tr><tr class="highlight-line-noop"><td><pre>    <span class="sd">&quot;&quot;&quot;</span></pre></td></tr><tr class="highlight-line-noop"><td><pre><span class="sd">    Solves Tower of Hanoi problem with n discs by moving all discs </span></pre></td></tr><tr class="highlight-line-noop"><td><pre><span class="sd">    from the source rod to the destination rod while using </span></pre></td></tr><tr class="highlight-line-noop"><td><pre><span class="sd">    the auxiliary rod as the helper rod.</span></pre></td></tr><tr class="highlight-line-noop"><td><pre><br></pre></td></tr><tr class="highlight-line-noop"><td><pre><span class="sd">    The result is an iterator of tuple pairs specifying the sequence </span></pre></td></tr><tr class="highlight-line-noop"><td><pre><span class="sd">    of move operations (from_rod, to_rod).</span></pre></td></tr><tr class="highlight-line-noop"><td><pre><span class="sd">    &quot;&quot;&quot;</span> </pre></td></tr><tr class="highlight-line-noop"><td><pre>    <span class="k">assert</span> <span class="n">n</span> <span class="o">&gt;=</span> <span class="mi">1</span></pre></td></tr><tr class="highlight-line-noop"><td><pre>    <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span></pre></td></tr><tr class="highlight-line-noop"><td><pre>        <span class="k">yield</span> <span class="n">src</span><span class="p">,</span> <span class="n">dest</span></pre></td></tr><tr class="highlight-line-noop"><td><pre>    <span class="k">else</span><span class="p">:</span></pre></td></tr><tr class="highlight-line-noop"><td><pre>        <span class="k">yield from</span> <span class="n">tower_of_hanoi_v4</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">src</span><span class="p">,</span> <span class="n">aux</span><span class="p">,</span> <span class="n">dest</span><span class="p">)</span>   </pre></td></tr><tr class="highlight-line-noop"><td><pre>        <span class="k">yield</span> <span class="n">src</span><span class="p">,</span> <span class="n">dest</span></pre></td></tr><tr class="highlight-line-noop"><td><pre>        <span class="k">yield from</span> <span class="n">tower_of_hanoi_v4</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">aux</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span> <span class="n">src</span><span class="p">)</span></pre></td></tr></tbody></table></div></div><div class="highlight"><div class="highlight-wrapper"><table class="highlight-table"><tbody><tr class="highlight-line-noop"><td><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ops</span> <span class="o">=</span> <span class="n">tower_of_hanoi_v4</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">)</span></pre></td></tr><tr class="highlight-line-noop"><td><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">ops</span></pre></td></tr><tr class="highlight-line-noop"><td><pre><span class="go">&lt;generator object tower_of_hanoi_v4 at 0x7fc0dec0ffee&gt;</span></pre></td></tr><tr class="highlight-line-noop"><td><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">src</span><span class="p">,</span> <span class="n">dest</span> <span class="ow">in</span> <span class="n">ops</span><span class="p">:</span></pre></td></tr><tr class="highlight-line-noop"><td><pre><span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Move </span><span class="si">{</span><span class="n">src</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">dest</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>     </pre></td></tr><tr class="highlight-line-noop"><td><pre><span class="go">Move A to B</span></pre></td></tr><tr class="highlight-line-noop"><td><pre><span class="go">Move A to C</span></pre></td></tr><tr class="highlight-line-noop"><td><pre><span class="go">Move B to C</span></pre></td></tr><tr class="highlight-line-noop"><td><pre><span class="go">Move A to B</span></pre></td></tr><tr class="highlight-line-noop"><td><pre><span class="go">Move C to A</span></pre></td></tr><tr class="highlight-line-noop"><td><pre><span class="go">Move C to B</span></pre></td></tr><tr class="highlight-line-noop"><td><pre><span class="go">Move A to B</span></pre></td></tr></tbody></table></div></div><p>ฮั่นแน่&hairsp;… อย่างที่สังเกตเห็น ฟังก์ชัน <code>tower_of_hanoi_v4</code> นี้มีความคล้ายคลึงกับโค้ด 
+2 เวอร์ชันแรกมากกว่าโค้ดชุดล่าสุดอย่างฟังก์ชัน <code>tower_of_hanoi_v3</code> เสียด้วยซ้ำ</p><p>แต่ผู้อ่านอาจจะสงสัยว่า คำสั่ง <code>yield from</code> ในภาษา Python คืออะไรและมีการทำงานอย่างไร<span style="padding-left: 0.8rem;"></span>
+จะขออธิบายโดยนำคำสั่งดังกล่าวมาเปรียบเทียบกับคำสั่ง <code>yield</code> ดังนี้</p><ul><li>คำสั่ง <code>yield &lt;item expression&gt;</code> ทำหน้าที่คืนค่าวัตถุที่เกิดจากการประมวลผล
+        <code>&lt;item expression&gt;</code> ออกเป็นสมาชิก&hairsp;<strong>ค่าหนึ่ง</strong>&hairsp;ของ generator object</li><li>คำสั่ง <code>yield from &lt;iterable expression&gt;</code> ทำหน้าที่คืนค่าวัตถุ&hairsp;<strong>หลายค่า</strong>&hairsp;ที่เกิดจากการประมวลผล
+        <code>&lt;iterable expression&gt;</code> ออกมาเป็นสมาชิกของ generator object &hairsp;<strong>ทีละตัว</strong>&hairsp;</li></ul><p>ฟังก์ชัน <code>tower_of_hanoi_v4</code> นี้ นอกจากจะดูเรียบง่ายกว่า <code>tower_of_hanoi_v3</code> แล้วนั้น
+ยังให้ผลลัพธ์เป็น generator object ซึ่งเป็นวัตถุ iterable 
+ที่มีประโยชน์ใช้สอยได้หลากหลายกว่าการที่ฟังก์ชันรีเทิร์นค่าเป็น list ดังที่เคยเล่าในบทความตอนนี้แล้ว</p><div class="highlight"><div class="highlight-wrapper"><table class="highlight-table"><tbody><tr class="highlight-line-noop"><td><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="n">tower_of_hanoi_v4</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">))</span></pre></td></tr><tr class="highlight-line-noop"><td><pre><span class="go">[(&#39;A&#39;, &#39;B&#39;), (&#39;A&#39;, &#39;C&#39;), (&#39;B&#39;, &#39;C&#39;), (&#39;A&#39;, &#39;B&#39;), (&#39;C&#39;, &#39;A&#39;), (&#39;C&#39;, &#39;B&#39;), (&#39;A&#39;, &#39;B&#39;)]</span></pre></td></tr></tbody></table></div></div><h2><a class="headeranchor" id="aebbfuekhad-occhthy-binary-tree-traversal"></a>แบบฝึกหัด:&ensp;โจทย์ Binary Tree Traversal<a class="headerlink" href="#aebbfuekhad-occhthy-binary-tree-traversal" title="Permalink to this headline"></a></h2><p>&hairsp;<strong>คำถาม:</strong>&hairsp; สมมติว่าเรามี Binary Tree อยู่ต้นหนึ่ง เราจะได้วัตถุ iterable ของสมาชิกแต่ละตัวภายในต้นไม้ได้อย่างไร?</p><p>ผู้อ่านสามารถลองทำแบบฝึกหัดนี้ง่าย&hairsp;ๆ ได้ที่
+[<a href="https://colab.research.google.com/gist/abhabongse/30c60a12c47ebb9fac4ccc605714aa76/BinaryTreeTraversal.ipynb">ลิงก์สำหรับ Colab</a>]
+หรืออาจจะเข้าถึงไฟล์ Notebook โดยตรงได้ที่ [<a href="https://gist.github.com/abhabongse/30c60a12c47ebb9fac4ccc605714aa76/">ลิงค์สำหรับ GitHub Gist</a>]</p><p>(คำใบ้: เขียนไม่เกิน 5 บรรทัดต่อ 1 ฟังก์ชัน)</p><p>แล้วพบกันในโอกาสต่อไปครับ</p>
+                </div>
+            </section>
+
+        </article>
+    </div>
+</main>
+
+<aside class="read-next outer">
+    <div class="inner">
+        <div class="read-next-feed">
+                <article class="read-next-card">
+                    <header class="read-next-card-header">
+                        <h3><span>More in</span> <a href="/category/coding">coding</a></h3>
+                    </header>
+                    <div class="read-next-card-content">
+                        <ul>
+                            <li>
+                                <h4><a href="/posts/on-fuzziness-of-terminology-compiling-vs-interpreting">On Fuzziness of Terminology: Compiling vs Interpreting</a></h4>
+                                <div class="read-next-card-meta">
+                                    <p><time datetime="2020-03-31T00:00:00+07:00">Tue 31 March 2020</time> –
+                                        15 min</p>
+                                </div>
+                            </li>
+                            <li>
+                                <h4><a href="/posts/python-iterables-part-2-prepare-your-iterables">Prepare Your Iterables – Python Iterables Part 2 of N</a></h4>
+                                <div class="read-next-card-meta">
+                                    <p><time datetime="2019-07-17T00:00:00+07:00">Wed 17 July 2019</time> –
+                                        25 min</p>
+                                </div>
+                            </li>
+                            <li>
+                                <h4><a href="/posts/python-iterables-part-1">For Statements – Python Iterables Part 1 of N</a></h4>
+                                <div class="read-next-card-meta">
+                                    <p><time datetime="2019-06-05T00:00:00+07:00">Wed 05 June 2019</time> –
+                                        8 min</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <footer class="read-next-card-footer">
+                        <a href="/category/coding">
+                            See all 4 posts
+                        </a>
+                    </footer>
+                </article>
+
+                <article class="post-card post ">
+
+    <a class="post-card-image-link" href="/posts/first-abroad-trip-to-concert">
+        <img class="post-card-image"
+             sizes="(max-width: 1000px) 400px, 700px"
+             src="/images/featured/nakano-sun-plaza.jpg"
+             alt="ประสบการณ์บินไปญี่ปุ่น ไปดูคอนเสิร์ตอย่างเดียว"
+        />
+    </a>
+
+    <div class="post-card-content">
+        <a class="post-card-content-link" href="/posts/first-abroad-trip-to-concert">
+            <header class="post-card-header">
+                <div class="post-card-primary-tag">music</div>
+                <h2 class="post-card-title">ประสบการณ์บินไปญี่ปุ่น ไปดูคอนเสิร์ตอย่างเดียว</h2>
+            </header>
+            <section class="post-card-excerpt">
+                <p>เรื่องมีอยู่ว่า&hairsp;… ประมาณช่วงครึ่งปีแรกของ 2018 มีข่าวของ Yuki Kajiura นักประพันธ์เพลงประกอบอนิเมะญี่ปุ่นมากมาย เช่น Sword Art Online, Puella Magi Madoka Magica, Fate/Zero, Fate/stay night: Heaven’s Feel, Demon Slayer: Kimetsu no Yaiba เป็นต้น ประกาศตัดความส …</p>
+            </section>
+        </a>
+
+        <footer class="post-card-meta">
+            <ul class="author-list">
+                <li class="author-list-item">
+                    <div class="author-name-tooltip">Abhabongse Janthong</div>
+                    <a href="/author/abhabongse-janthong" class="static-avatar">
+                        <img class="author-profile-image"
+                             src="/avatars/d59f180139c7ef4544b6f34b97ed942cf4f486a3e833683a9ca1e1b298e18ca8.jpg"
+                             alt="Abhabongse Janthong"
+                        />
+                    </a>
+                </li>
+            </ul>
+            <div class="post-card-byline-content">
+                <span>
+                    Abhabongse Janthong
+                </span>
+                <span class="post-card-byline-date">
+                    <time datetime="2020-07-27T00:00:00+07:00">Mon 27 July 2020</time>
+                    <span class="bull">&bull;</span>
+                    4 min read
+                </span>
+            </div>
+        </footer>
+    </div>
+</article>
+
+                <article class="post-card post ">
+
+    <a class="post-card-image-link" href="/posts/on-fuzziness-of-terminology-compiling-vs-interpreting">
+        <img class="post-card-image"
+             sizes="(max-width: 1000px) 400px, 700px"
+             src="/images/featured/bird-butt-at-sb-wharf.jpg"
+             alt="On Fuzziness of Terminology: Compiling vs Interpreting"
+        />
+    </a>
+
+    <div class="post-card-content">
+        <a class="post-card-content-link" href="/posts/on-fuzziness-of-terminology-compiling-vs-interpreting">
+            <header class="post-card-header">
+                <div class="post-card-primary-tag">coding</div>
+                <h2 class="post-card-title">On Fuzziness of Terminology: Compiling vs Interpreting</h2>
+            </header>
+            <section class="post-card-excerpt">
+                <p>เมื่อเราต้องทำงานกับภาษาโปรแกรม (programming language) ภาษาต่าง&hairsp;ๆ มากกว่า 1 ภาษา เรามักจะพบว่าแต่ละภาษามีลักษณะที่แตกต่างกันออกไปเสมือนว่าแต่ละภาษาก็มีโลกเป็นของตัวเอง หนึ่งในความแตกต่างทั้งหลายที่เห็นได้ชัดเจนที่สุดก็คือ &hairsp;ลักษณะของภาษาที่จะทำงานแบบ compile หรือว่าแบบ interpret&hairsp;ก …</p>
+            </section>
+        </a>
+
+        <footer class="post-card-meta">
+            <ul class="author-list">
+                <li class="author-list-item">
+                    <div class="author-name-tooltip">Abhabongse Janthong</div>
+                    <a href="/author/abhabongse-janthong" class="static-avatar">
+                        <img class="author-profile-image"
+                             src="/avatars/d59f180139c7ef4544b6f34b97ed942cf4f486a3e833683a9ca1e1b298e18ca8.jpg"
+                             alt="Abhabongse Janthong"
+                        />
+                    </a>
+                </li>
+            </ul>
+            <div class="post-card-byline-content">
+                <span>
+                    Abhabongse Janthong
+                </span>
+                <span class="post-card-byline-date">
+                    <time datetime="2020-03-31T00:00:00+07:00">Tue 31 March 2020</time>
+                    <span class="bull">&bull;</span>
+                    15 min read
+                </span>
+            </div>
+        </footer>
+    </div>
+</article>
+        </div>
+    </div>
+</aside>
+
+
+    <footer class="site-footer outer">
+        <div class="site-footer-content inner">
+            <section class="copyright">
+                <a href="/">Personal Blog</a>
+                &copy;
+2020&hairsp;&ndash;&hairsp;2021
+            </section>
+            <nav class="site-footer-nav">
+                <a href="/">Latest Posts</a>
+                <a href="https://facebook.com/abhabongse" target="_blank" rel="noopener">Facebook</a>
+                <a href="https://twitter.com/abhabongse" target="_blank" rel="noopener">Twitter</a>
+                <a href="https://github.com/abhabongse" target="_blank" rel="noopener">GitHub</a>
+            </nav>
+        </div>
+    </footer>
+</div>
+
+<script src="/theme/js/main.min.js"></script>
+<script>
+    ready(function () {
+        // Replace nav with title on scroll - start
+        Casper.stickyNavTitle({
+            navSelector: '.site-nav-main',
+            titleSelector: '.post-full-title',
+            activeClass: 'nav-post-title-active'
+        });
+        // Replace nav with title on scroll - end
+
+        // Hover on avatar
+        var hoverTimeout;
+        document.querySelectorAll('.author-list-item').forEach(function(listItem) {
+            listItem.addEventListener('mouseover', function(_) {
+                clearTimeout(hoverTimeout);
+                document.querySelectorAll('.author-card').forEach(function(cardItem) {
+                    cardItem.classList.remove('hovered');
+                });
+                listItem.querySelectorAll('.author-card').forEach(function(cardItem) {
+                    cardItem.classList.add('hovered');
+                });
+            });
+            listItem.addEventListener('mouseleave', function(_) {
+                hoverTimeout = setTimeout(function() {
+                    listItem.querySelectorAll('.author-card').forEach(function(cardItem) {
+                        cardItem.classList.remove('hovered');
+                    });
+                }, 800);
+            });
+        });
+    });
+</script>
+</body>
+</html>

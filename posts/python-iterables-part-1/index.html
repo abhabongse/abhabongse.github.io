@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <title>For Statements – Python Iterables Part 1 of N @ Personal Blog</title>
+
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="HandheldFriendly" content="True"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code&family=Kanit:ital,wght@0,300;0,600;1,300;1,600&family=Roboto:ital,wght@0,400;0,700;1,400;1,700&family=Sarabun:ital,wght@0,300;0,600;1,300;1,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" 
+          href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" 
+          integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" 
+          crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js" 
+            integrity="sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4" 
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" 
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" 
+          integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" 
+          crossorigin="anonymous">
+
+    <link rel="stylesheet" type="text/css" href="/theme/css/main.css"/>
+
+<link href="https://abhabongse.github.io/feeds/all.atom.xml"
+          type="application/atom+xml" rel="alternate" title="Personal Blog Full Atom Feed"/><link href="https://abhabongse.github.io/feeds/category-coding.atom.xml"
+          type="application/atom+xml" rel="alternate" title="Personal Blog Categories Atom Feed"/>
+
+
+
+        <meta name="tags" content="python" />
+        <meta name="tags" content="iterators" />
+</head>
+<body id="index" class="post-template">
+<div class="site-wrapper">
+
+<header class="site-header">
+<div class="outer site-nav-main">
+    <div class="inner">
+<nav class="site-nav">
+    <div class="site-nav-left-wrapper">
+        <div class="site-nav-left">
+            <a class="site-nav-logo" href="/"><img src="/images/logo.png" alt="Personal Blog" /></a>
+            <div class="site-nav-content">
+                <ul class="nav">
+                        <li><a href="/pages/about">About</a></li>
+                        <li class="active"><a href="/category/coding">coding</a></li>
+                        <li><a href="/category/music">music</a></li>
+                        <li><a href="/category/others">others</a></li>
+                </ul>
+                    <span class="nav-post-title ">For Statements – Python Iterables Part 1 of N</span>
+            </div>
+        </div>
+    </div>
+    <div class="site-nav-right">
+        <div class="social-links">
+            <a class="social-link social-link-fb" href="https://facebook.com/abhabongse" title="Facebook" target="_blank" rel="noopener">
+<svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><path d="M16 0c8.837 0 16 7.163 16 16s-7.163 16-16 16S0 24.837 0 16 7.163 0 16 0zm5.204 4.911h-3.546c-2.103 0-4.443.885-4.443 3.934.01 1.062 0 2.08 0 3.225h-2.433v3.872h2.509v11.147h4.61v-11.22h3.042l.275-3.81h-3.397s.007-1.695 0-2.187c0-1.205 1.253-1.136 1.329-1.136h2.054V4.911z" /></svg>            </a>
+            <a class="social-link social-link-tw" href="https://twitter.com/abhabongse" title="Twitter" target="_blank" rel="noopener">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M30.063 7.313c-.813 1.125-1.75 2.125-2.875 2.938v.75c0 1.563-.188 3.125-.688 4.625a15.088 15.088 0 0 1-2.063 4.438c-.875 1.438-2 2.688-3.25 3.813a15.015 15.015 0 0 1-4.625 2.563c-1.813.688-3.75 1-5.75 1-3.25 0-6.188-.875-8.875-2.625.438.063.875.125 1.375.125 2.688 0 5.063-.875 7.188-2.5-1.25 0-2.375-.375-3.375-1.125s-1.688-1.688-2.063-2.875c.438.063.813.125 1.125.125.5 0 1-.063 1.5-.25-1.313-.25-2.438-.938-3.313-1.938a5.673 5.673 0 0 1-1.313-3.688v-.063c.813.438 1.688.688 2.625.688a5.228 5.228 0 0 1-1.875-2c-.5-.875-.688-1.813-.688-2.75 0-1.063.25-2.063.75-2.938 1.438 1.75 3.188 3.188 5.25 4.25s4.313 1.688 6.688 1.813a5.579 5.579 0 0 1 1.5-5.438c1.125-1.125 2.5-1.688 4.125-1.688s3.063.625 4.188 1.813a11.48 11.48 0 0 0 3.688-1.375c-.438 1.375-1.313 2.438-2.563 3.188 1.125-.125 2.188-.438 3.313-.875z"/></svg>            </a>
+            <a class="social-link social-link-fb" href="https://github.com/abhabongse" title="GitHub" target="_blank" rel="noopener">
+<svg xmlns="http://www.w3.org/2000/svg" height="32" width="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>            </a>
+        </div>
+        <a class="rss-button" href="https://abhabongse.github.io/feeds/all.atom.xml" title="RSS" target="_blank" rel="noopener">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><circle cx="6.18" cy="17.82" r="2.18"/><path d="M4 4.44v2.83c7.03 0 12.73 5.7 12.73 12.73h2.83c0-8.59-6.97-15.56-15.56-15.56zm0 5.66v2.83c3.9 0 7.07 3.17 7.07 7.07h2.83c0-5.47-4.43-9.9-9.9-9.9z"/></svg>        </a>
+    </div>
+</nav>    </div>
+</div></header>
+
+<main id="site-main" class="site-main outer">
+    <div class="inner">
+        <article class="post-full post ">
+
+            <header class="post-full-header">
+
+                <section class="post-full-tags">
+                    <a href="/category/coding">coding</a>
+                        <span class="bull">&nbsp;&bull;&nbsp;</span>
+                        <a href="/tag/python">python</a>
+                        <span class="bull">&nbsp;&bull;&nbsp;</span>
+                        <a href="/tag/iterators">iterators</a>
+                </section>
+
+                <h1 class="post-full-title">For Statements – Python Iterables Part 1 of N</h1>
+
+                <p class="post-full-custom-excerpt">ก็ไม่รู้ว่ามันจะมีกี่ตอน</p>
+
+                <div class="post-full-byline">
+                    <section class="post-full-byline-content">
+                        <ul class="author-list">
+                            <li class="author-list-item">
+                                <div class="author-card">
+
+                                    <img class="author-profile-image" src="/avatars/d59f180139c7ef4544b6f34b97ed942cf4f486a3e833683a9ca1e1b298e18ca8.jpg" alt="Abhabongse Janthong" />
+                                    <div class="author-info">
+                                            <div class="bio">
+                                                <h2>Abhabongse Janthong</h2>
+                                                <p>A programmer who tries to protect himself from his future self</p>
+                                                <p><a href="/author/abhabongse-janthong">More posts</a> by Abhabongse Janthong.</p>
+                                            </div>
+                                    </div>
+                                </div>
+
+                                <a href="/author/abhabongse-janthong" class="author-avatar">
+                                    <img class="author-profile-image" src="/avatars/d59f180139c7ef4544b6f34b97ed942cf4f486a3e833683a9ca1e1b298e18ca8.jpg" alt="Abhabongse Janthong" />
+                                </a>
+
+                            </li>
+                        </ul>
+
+                        <section class="post-full-byline-meta">
+                            <h4 class="author-name">Abhabongse Janthong</h4>
+                            <div class="byline-meta-content">
+                                Published: <time class="byline-meta-date published" datetime="2019-06-05T00:00:00+07:00">
+                                Wed 05 June 2019
+                            </time>
+                                <span class="bull">&bull;</span>
+                                8 min read
+                            </div>
+                        </section>
+
+                    </section>
+                </div>
+            </header>
+
+            <figure class="post-full-image">
+                <img sizes="(max-width: 800px) 400px,
+                            (max-width: 1170px) 1170px,
+                            2000px"
+                    src="/images/featured/gajoen-blue-stone.jpg"
+                    alt="For Statements – Python Iterables Part 1 of N"
+                />
+            </figure>
+
+            <section class="post-full-content">
+                <div class="post-content">
+                    <p>ตอนแรกอยากเปิด blog ด้วยหัวข้อบันเทิงหน่อย ๆ แต่เผอิญได้ไอเดียเขียนเรื่องจริงจังระหว่างที่ทำงานอยู่
+เลยได้เรื่องเขียนเกี่ยวกับของที่เจอบ่อยอย่าง for loop ในภาษา Python เสียหน่อยแล้วกัน</p><p>เคยสังเกตไหมว่า for statement ในภาษา Python จะใช้งานกับ
+&hairsp;<em>iterable</em>&hairsp; &hairsp;<strong>เพียงอย่างเดียวเท่านั้น</strong>&hairsp; (ถ้างงกับประโยคนี้ อ่านข้ามไปก่อน) &nbsp;
+ซึ่งจะแตกต่างจากหลาย ๆ ภาษาที่ for statement ที่มักใช้ประโยคเงื่อนไข (conditional clause) เพื่อตรวจสอบเงื่อนไขของการซ้ำลูป</p><p>ตัวอย่างการใช้งาน for statement ในภาษา C ซึ่งมี <code>i &lt; n</code> เป็น conditional clause
+<div class="highlight"><div class="highlight-wrapper"><table class="highlight-table"><tbody><tr class="highlight-line-noop"><td><pre><span></span><span class="c1">// Find a product of n integers in array A</span></pre></td></tr><tr class="highlight-line-noop"><td><pre><span class="kt">int</span> <span class="nf">product</span><span class="p">(</span><span class="kt">int</span> <span class="n">A</span><span class="p">[],</span> <span class="kt">int</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span></pre></td></tr><tr class="highlight-line-noop"><td><pre>    <span class="kt">int</span> <span class="n">accm</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span></pre></td></tr><tr class="highlight-line-noop"><td><pre>    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span></pre></td></tr><tr class="highlight-line-noop"><td><pre>        <span class="n">accm</span> <span class="o">*=</span> <span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">];</span></pre></td></tr><tr class="highlight-line-noop"><td><pre>    <span class="p">}</span></pre></td></tr><tr class="highlight-line-noop"><td><pre>    <span class="k">return</span> <span class="n">accm</span><span class="p">;</span></pre></td></tr><tr class="highlight-line-noop"><td><pre><span class="p">}</span></pre></td></tr></tbody></table></div></div></p><p>มือใหม่หลาย ๆ คนที่พยายามจะแปลงโค้ดข้างต้นเป็นภาษา Python อาจจะเขียนโค้ดในลักษณะดังต่อไปนี้</p><div class="highlight"><div class="highlight-wrapper"><table class="highlight-table"><tbody><tr class="highlight-line-noop"><td><pre><span></span><span class="k">def</span> <span class="nf">product</span><span class="p">(</span><span class="n">A</span><span class="p">):</span></pre></td></tr><tr class="highlight-line-noop"><td><pre>    <span class="c1"># Find the product of all integers in the list A</span></pre></td></tr><tr class="highlight-line-noop"><td><pre>    <span class="n">accm</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c1"># accumulated product</span></pre></td></tr><tr class="highlight-line-noop"><td><pre>    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">A</span><span class="p">)):</span></pre></td></tr><tr class="highlight-line-noop"><td><pre>        <span class="n">accm</span> <span class="o">*=</span> <span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">]</span></pre></td></tr><tr class="highlight-line-noop"><td><pre>    <span class="k">return</span> <span class="n">accm</span></pre></td></tr></tbody></table></div></div><p>“นี่ไง! ค่าของตัวแปร <code>i</code> จะวิ่งไล่จาก <code>0</code> จนถึง <code>len(A) - 1</code>
+ซึ่งตรงตามเงื่อนไขเดียวกับโปรแกรมภาษา C++ ข้างบนเลย (เมื่อกำหนดให้ <code>n == len(A)</code>)”</p><p>หากเรากำลังพูดถึงการเปลี่ยนแปลงค่าของตัวเแปร <code>i</code> ใน for statement เป็นหลักแล้ว คำกล่าวข้างต้นนี้ถูกต้องเลยทีเดียว &nbsp;
+&hairsp;<em>แต่ว่า</em>&hairsp; กลไกของ for statement ของทั้งสองโปรแกรมนี้กลับแตกต่างกันโดยสิ้นเชิง</p><p>ก่อนที่เราจะพูดถึงกลไกการทำงานของ for statement ในภาษา Python เรามาปรับปรุงโค้ดข้างต้นเสียหน่อยดีกว่า
+(ซึ่งผู้อ่านบางท่านอาจจะตั้งข้อสังเกตไว้แล้ว)</p><div class="highlight"><div class="highlight-wrapper"><table class="highlight-table"><tbody><tr class="highlight-line-noop"><td><pre><span></span><span class="c1"># Version 2</span></pre></td></tr><tr class="highlight-line-noop"><td><pre><span class="k">def</span> <span class="nf">product</span><span class="p">(</span><span class="n">values</span><span class="p">):</span></pre></td></tr><tr class="highlight-line-noop"><td><pre>    <span class="c1"># Find the product of all integers in the list values</span></pre></td></tr><tr class="highlight-line-noop"><td><pre>    <span class="n">accm</span> <span class="o">=</span> <span class="mi">1</span></pre></td></tr><tr class="highlight-line-noop"><td><pre>    <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">values</span><span class="p">:</span></pre></td></tr><tr class="highlight-line-noop"><td><pre>        <span class="n">accm</span> <span class="o">*=</span> <span class="n">v</span></pre></td></tr><tr class="highlight-line-noop"><td><pre>    <span class="k">return</span> <span class="n">accm</span></pre></td></tr></tbody></table></div></div><p>สังเกตว่า for statement ของเราในโค้ดนี้ <code>v</code> จะแทนจำนวนแต่ละจำนวนในลิสต์ <code>values</code> &nbsp;
+แต่ถ้าพิจารณาในละเอียดยิ่งขึ้น จะพบว่า <code>values</code> ไม่จำเป็นต้องเป็นลิสต์ก็ได้ เช่น</p><div class="highlight"><div class="highlight-wrapper"><table class="highlight-table"><tbody><tr class="highlight-line-noop"><td><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">product</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">])</span>  <span class="c1"># list</span></pre></td></tr><tr class="highlight-line-noop"><td><pre><span class="go">210</span></pre></td></tr><tr class="highlight-line-noop"><td><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">product</span><span class="p">({</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">})</span>  <span class="c1"># set</span></pre></td></tr><tr class="highlight-line-noop"><td><pre><span class="go">6</span></pre></td></tr><tr class="highlight-line-noop"><td><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">product</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">9</span><span class="p">))</span>  <span class="c1"># tuple</span></pre></td></tr><tr class="highlight-line-noop"><td><pre><span class="go">36</span></pre></td></tr><tr class="highlight-line-noop"><td><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">:</span> <span class="mi">4</span><span class="p">}</span></pre></td></tr><tr class="highlight-line-noop"><td><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">product</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>  <span class="c1"># dict keys</span></pre></td></tr><tr class="highlight-line-noop"><td><pre><span class="go">120</span></pre></td></tr><tr class="highlight-line-noop"><td><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">product</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>  <span class="c1"># dict values</span></pre></td></tr><tr class="highlight-line-noop"><td><pre><span class="go">720</span></pre></td></tr><tr class="highlight-line-noop"><td><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">product</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>  <span class="c1"># same as dict keys</span></pre></td></tr><tr class="highlight-line-noop"><td><pre><span class="go">120</span></pre></td></tr><tr class="highlight-line-noop"><td><pre><span class="go">product(range(1, 10, 2))  # range</span></pre></td></tr><tr class="highlight-line-noop"><td><pre><span class="go">945</span></pre></td></tr><tr class="highlight-line-noop"><td><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">product</span><span class="p">(</span></pre></td></tr><tr class="highlight-line-noop"><td><pre><span class="gp">... </span>    <span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span></pre></td></tr><tr class="highlight-line-noop"><td><pre><span class="gp">... </span>    <span class="k">if</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">1</span></pre></td></tr><tr class="highlight-line-noop"><td><pre><span class="gp">... </span><span class="p">)</span>  <span class="c1"># generator expression</span></pre></td></tr><tr class="highlight-line-noop"><td><pre><span class="go">945</span></pre></td></tr></tbody></table></div></div><p>“เดี๋ยวนะ! ชักจะไปกันใหญ่แล้วหละ! แล้วทำไมโค้ดพวกนี้ถึงใช้กับค่าพวกนี้ได้ทั้งหมดเลยหละ?”
+<small>(ซึ่งหากลองย้อนกลับไปดูย่อหน้าแรก ๆ ของบทความนี้จะมีคำใบ้อยู่)</small></p><p>ใช่แล้ว! ค่า <code>values</code> เหล่านี้ล้วนแต่เป็น iterable ทั้งนั้น</p><p>&hairsp;<em>หมายความว่าอย่างไร?</em>&hairsp; &hairsp;<strong>เจตนารมณ์</strong>&hairsp;ของ iterable ในภาษา Python ก็คือวัตถุที่สามารถไล่เรียกดูสมาชิกแต่ละตัวได้
+ไม่ว่าจะเป็น built-in data types อย่าง <code>list</code>, <code>set</code>, <code>tuple</code>, <code>dict</code>, etc.
+หรือแม้แต่วัตถุอื่น ๆ เช่น <code>range</code> หรือ generator expression และอื่น ๆ อีกมากมายเองก็เกิดเป็น iterable เช่นกัน</p><p>ในกรณีของ <code>range(start, stop, step)</code><label for="sidenote-7feb1ca4b550" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sidenote-7feb1ca4b550" class="margin-toggle"/><span class="sidenote"><a href="https://docs.python.org/3/library/stdtypes.html#ranges">See documentation</a></span>
+เองนั้นจะก่อเกิด iterable ที่มีค่าเริ่มจาก <code>start</code>
+ไปจนถึงก่อนค่า <code>stop</code> โดยนับกระโดดข้ามทีละ <code>step</code> นั่นเอง</p><blockquote><p>ใน&hairsp;<strong>เชิงสเปก</strong>&hairsp;ของภาษา Python นั้น วัตถุทุกชิ้นที่มี method ชื่อ <code>__iter__(self)</code>
+    สร้างไว้ล้วนแต่เป็น iterable ทั้งสิ้น
+    และเมื่อพูดถึง for statement แล้ว สิ่งแรกที่เกิดขึ้นเมื่อเริ่มรัน for statement ก็คือการเรียก
+    method <code>__iter__(self)</code> นี้นี่เอง</p><p>และเมื่อ method <code>__iter__(self)</code> ถูกเรียกใช้งาน
+    มันจะรีเทิร์นค่าออกมาเป็นวัตถุอีกชิ้นหนึ่งซึ่งเรียกว่า iterator &nbsp;
+    และเจ้า iterator นี่เองก็จะมี method ชื่อ <code>__next__(self)</code> กำหนดไว้เช่นกัน
+    ซึ่งทุก ๆ ครั้งที่เรียก method นี้ซ้ำ ๆ กันจึงจะคืนค่าสมาชิกแต่ละตัวตามลำดับ</p><p>&hairsp;<strong>หมายเหตุ:</strong>&hairsp; แนวคิดนี้มีความใกล้เคียงกับ
+    <code>java.lang.Iterable</code> และ
+    <code>java.util.Iterator</code><label for="sidenote-7feb1ca4bbb0" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sidenote-7feb1ca4bbb0" class="margin-toggle"/><span class="sidenote">See references <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Iterable.html">here</a> and <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Iterator.html">here</a></span>
+    สำหรับคนที่ใช้ภาษา Java มาก่อน</p></blockquote><p>อย่าเพิ่งตกใจไป! ทั้ง method <code>__iter__</code> และ <code>__next__</code> ที่กล่าวมาข้างต้นนั้น
+ผู้พัฒนาภาษา Python ได้นำไปสเปกเหล่านี้ใช้สร้าง data types
+(อย่าง <code>list</code>, <code>set</code>, <code>dict</code>, etc.)
+หรือแม้แต่ <code>range</code> ที่เราใช้งานกันอยู่ทุกวัน เพื่ออำนวยความสะดวกผู้ใช้ภาษา Python นั่นเอง &nbsp;
+โดยส่วนใหญ่แล้ว เรามักไม่มีเหตุผลที่จะต้องเขียน method <code>__iter__</code> หรือ <code>__next__</code> เอง
+เว้นเสียแต่เราจะประกาศสร้าง data type ขึ้นใช้งานเองเพิ่มเติม</p><p>นอกจากนี้ ยังมีวิธีต่าง ๆ มากมายที่ Python สร้างสรรค์ไว้ให้ผู้ใช้งานภาษา Python สามารถสร้าง iterable ขึ้นใช้งานเองได้
+(อย่างเช่น Generator expression ดังที่ปรากฏข้างต้น) โดยไม่ต้องไปยุ่มย่ามกับ
+method <code>__iter__</code> หรือ <code>__next__</code></p><p>ในเมื่อเราทราบแล้วว่าโค้ดของฟังก์ชัน <code>product</code> ข้างต้นนั้นสามารถใช้งานกับ iterable ของจำนวนเต็มในรูปแบบใด ๆ ก็ได้
+เราจะปรับปรุงโค้ดนี้ให้ชัดเจนขึ้นว่า <code>values</code> สามารถเป็น iterable แบบใดก็ได้ ซึ่งได้ผลดังนี้</p><div class="highlight"><div class="highlight-wrapper"><table class="highlight-table"><tbody><tr class="highlight-line-noop"><td><pre><span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Iterable</span></pre></td></tr><tr class="highlight-line-noop"><td><pre><br></pre></td></tr><tr class="highlight-line-noop"><td><pre><span class="c1"># Version 3</span></pre></td></tr><tr class="highlight-line-noop"><td><pre><span class="k">def</span> <span class="nf">product</span><span class="p">(</span><span class="n">values</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span></pre></td></tr><tr class="highlight-line-noop"><td><pre>    <span class="sd">&quot;&quot;&quot;</span></pre></td></tr><tr class="highlight-line-noop"><td><pre><span class="sd">    Return the product of all integers of a given iterable.</span></pre></td></tr><tr class="highlight-line-noop"><td><pre><span class="sd">    &quot;&quot;&quot;</span></pre></td></tr><tr class="highlight-line-noop"><td><pre>    <span class="n">accm</span> <span class="o">=</span> <span class="mi">1</span></pre></td></tr><tr class="highlight-line-noop"><td><pre>    <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">values</span><span class="p">:</span></pre></td></tr><tr class="highlight-line-noop"><td><pre>        <span class="n">accm</span> <span class="o">*=</span> <span class="n">v</span></pre></td></tr><tr class="highlight-line-noop"><td><pre>    <span class="k">return</span> <span class="n">accm</span></pre></td></tr></tbody></table></div></div><p>เมื่อคุ้นชินกับการใช้งาน iterable สักพักหนึ่งแล้ว เราอาจจะเขียนฟังก์ชันเดียวกันนี้โดยใช้
+<code>functools.reduce</code><label for="sidenote-7feb1ca521c0" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sidenote-7feb1ca521c0" class="margin-toggle"/><span class="sidenote"><a href="https://docs.python.org/3/library/functools.html#functools.reduce">See documentation</a></span>
+ซึ่ง consume iterable โดยตรง จึงได้เป็นโค้ดใหม่ดังนี้</p><div class="highlight"><div class="highlight-wrapper"><table class="highlight-table"><tbody><tr class="highlight-line-noop"><td><pre><span></span><span class="kn">import</span> <span class="nn">functools</span></pre></td></tr><tr class="highlight-line-noop"><td><pre><span class="kn">import</span> <span class="nn">operator</span></pre></td></tr><tr class="highlight-line-noop"><td><pre><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Iterable</span></pre></td></tr><tr class="highlight-line-noop"><td><pre><br></pre></td></tr><tr class="highlight-line-noop"><td><pre><span class="c1"># Version 4</span></pre></td></tr><tr class="highlight-line-noop"><td><pre><span class="k">def</span> <span class="nf">product</span><span class="p">(</span><span class="n">values</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span></pre></td></tr><tr class="highlight-line-noop"><td><pre>    <span class="sd">&quot;&quot;&quot;</span></pre></td></tr><tr class="highlight-line-noop"><td><pre><span class="sd">    Return the product of all integers of a given iterable.</span></pre></td></tr><tr class="highlight-line-noop"><td><pre><span class="sd">    &quot;&quot;&quot;</span></pre></td></tr><tr class="highlight-line-noop"><td><pre>    <span class="c1"># may also write &#39;lambda a, b: a * b&#39; instead of operator.mul</span></pre></td></tr><tr class="highlight-line-noop"><td><pre>    <span class="k">return</span> <span class="n">functools</span><span class="o">.</span><span class="n">reduce</span><span class="p">(</span><span class="n">operator</span><span class="o">.</span><span class="n">mul</span><span class="p">,</span> <span class="n">values</span><span class="p">)</span></pre></td></tr></tbody></table></div></div><p>เรายังมีคำถามที่ยังค้างคาอยู่คำถามหนึ่ง เราลองกลับไปดูโค้ดภาษา Python อันแรกของเราอีกครั้ง</p><div class="highlight"><div class="highlight-wrapper"><table class="highlight-table"><tbody><tr class="highlight-line-noop"><td><pre><span></span><span class="c1"># Original version</span></pre></td></tr><tr class="highlight-line-noop"><td><pre><span class="k">def</span> <span class="nf">product</span><span class="p">(</span><span class="n">A</span><span class="p">):</span></pre></td></tr><tr class="highlight-line-noop"><td><pre>    <span class="c1"># Find the product of all integers in the list A</span></pre></td></tr><tr class="highlight-line-noop"><td><pre>    <span class="n">accm</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c1"># accumulated product</span></pre></td></tr><tr class="highlight-line-noop"><td><pre>    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">A</span><span class="p">)):</span></pre></td></tr><tr class="highlight-line-noop"><td><pre>        <span class="n">accm</span> <span class="o">*=</span> <span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">]</span></pre></td></tr><tr class="highlight-line-noop"><td><pre>    <span class="k">return</span> <span class="n">accm</span></pre></td></tr></tbody></table></div></div><p>จะพบว่า <code>range</code> ที่ใช้ในโค้ดนี้จะเกิดเป็นวัตถุ iterable ที่มีสมาชิกเป็น
+<code>0</code>, <code>1</code>, …, <code>len(A)-1</code> ตามลำดับ
+จากนั้นเราจึงใช้จำนวนเหล่านั้นเพื่อ index ค่าภายในลิสต์ <code>A</code> อีกทอดหนึ่ง
+(สังเกตดี ๆ ว่าเรายังทำงานกับวัตถุที่เป็น iterable อย่างไม่มีข้อยกเว้น)</p><p>หวังว่าจะทำให้ผู้ใช้งาน Python หลายท่านมองเห็นภาพการทำงานของ for statement มากขึ้น &nbsp;
+ในบทความถัดไปจะพูดถึงการสร้าง iterable ด้วยวิธีต่าง ๆ และการนำมาใช้อำนวยความสะดวกในการเขียนโปรแกรม
+ซึ่งจะทำให้โค้ดของเราเข้าใจง่ายขึ้นตามไปด้วย</p><p>&hairsp;<strong>หมายเหตุ:</strong>&hairsp; มีรายละเอียดหลายประการที่เกี่ยวข้องกับหัวข้อนี้ ซึ่งผู้เขียนไม่สามารถกล่าวถึงได้ทั้งหมดภายในบทความเดียว จึงขออภัยมา ณ ที่นี้</p><h2><a class="headeranchor" id="apedteruuenguuen"></a>อัปเดตเรื่องอื่น ๆ<a class="headerlink" href="#apedteruuenguuen" title="Permalink to this headline"></a></h2><p>สัปดาห์หน้ามีแพลนจะไปเที่ยวประเทศญี่ปุ่น อีเวนท์สำคัญก็คือคอนเสิร์ต
+<a href="https://www.eventernote.com/events/168195">Yuki Kajiura LIVE vol.#15 〜Soundtrack Special at the Amphitheater〜</a>
+ทั้งวันที่ 15 และ 16 มิถุนายนเลย และสัปดาห์ถัดไปก็ยังมี<a href="https://www.thailandphil.com/events/symphonic-anime/">คอนเสิร์ตคล้าย ๆ กันของไทย</a>ด้วย
+คงจะมีรีวิวเร็ว ๆ นี้แน่นอน</p>
+                </div>
+            </section>
+
+        </article>
+    </div>
+</main>
+
+<aside class="read-next outer">
+    <div class="inner">
+        <div class="read-next-feed">
+                <article class="read-next-card">
+                    <header class="read-next-card-header">
+                        <h3><span>More in</span> <a href="/category/coding">coding</a></h3>
+                    </header>
+                    <div class="read-next-card-content">
+                        <ul>
+                            <li>
+                                <h4><a href="/posts/python-iterables-part-3-advanced-generator-functions">Advanced Generator Functions – Python Iterables Part 3 of N</a></h4>
+                                <div class="read-next-card-meta">
+                                    <p><time datetime="2020-04-15T00:00:00+07:00">Wed 15 April 2020</time> –
+                                        8 min</p>
+                                </div>
+                            </li>
+                            <li>
+                                <h4><a href="/posts/on-fuzziness-of-terminology-compiling-vs-interpreting">On Fuzziness of Terminology: Compiling vs Interpreting</a></h4>
+                                <div class="read-next-card-meta">
+                                    <p><time datetime="2020-03-31T00:00:00+07:00">Tue 31 March 2020</time> –
+                                        15 min</p>
+                                </div>
+                            </li>
+                            <li>
+                                <h4><a href="/posts/python-iterables-part-2-prepare-your-iterables">Prepare Your Iterables – Python Iterables Part 2 of N</a></h4>
+                                <div class="read-next-card-meta">
+                                    <p><time datetime="2019-07-17T00:00:00+07:00">Wed 17 July 2019</time> –
+                                        25 min</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <footer class="read-next-card-footer">
+                        <a href="/category/coding">
+                            See all 4 posts
+                        </a>
+                    </footer>
+                </article>
+
+                <article class="post-card post ">
+
+    <a class="post-card-image-link" href="/posts/python-iterables-part-2-prepare-your-iterables">
+        <img class="post-card-image"
+             sizes="(max-width: 1000px) 400px, 700px"
+             src="/images/featured/gajoen-knitted-cube.jpg"
+             alt="Prepare Your Iterables – Python Iterables Part 2 of N"
+        />
+    </a>
+
+    <div class="post-card-content">
+        <a class="post-card-content-link" href="/posts/python-iterables-part-2-prepare-your-iterables">
+            <header class="post-card-header">
+                <div class="post-card-primary-tag">coding</div>
+                <h2 class="post-card-title">Prepare Your Iterables – Python Iterables Part 2 of N</h2>
+            </header>
+            <section class="post-card-excerpt">
+                <p>บทความที่แล้วได้กล่าวถึง for statement ของภาษา Python ซึ่งจะต้องใช้งานควบคู่กับวัตถุประเภท iterable เท่านั้นบทความนี้จะพูดถึงเทคนิคการจัดการกับลำดับของข้อมูล (sequence of data) ที่จะช่วยให้ for statement อ่านเข้าใจง่าย ดูสละสลวยขึ้น และยังม …</p>
+            </section>
+        </a>
+
+        <footer class="post-card-meta">
+            <ul class="author-list">
+                <li class="author-list-item">
+                    <div class="author-name-tooltip">Abhabongse Janthong</div>
+                    <a href="/author/abhabongse-janthong" class="static-avatar">
+                        <img class="author-profile-image"
+                             src="/avatars/d59f180139c7ef4544b6f34b97ed942cf4f486a3e833683a9ca1e1b298e18ca8.jpg"
+                             alt="Abhabongse Janthong"
+                        />
+                    </a>
+                </li>
+            </ul>
+            <div class="post-card-byline-content">
+                <span>
+                    Abhabongse Janthong
+                </span>
+                <span class="post-card-byline-date">
+                    <time datetime="2019-07-17T00:00:00+07:00">Wed 17 July 2019</time>
+                    <span class="bull">&bull;</span>
+                    25 min read
+                </span>
+            </div>
+        </footer>
+    </div>
+</article>
+
+                <article class="post-card post ">
+
+    <a class="post-card-image-link" href="/posts/first-entry">
+        <img class="post-card-image"
+             sizes="(max-width: 1000px) 400px, 700px"
+             src="/images/bird-at-olympic-national-park.jpg"
+             alt="Finally, a new blog"
+        />
+    </a>
+
+    <div class="post-card-content">
+        <a class="post-card-content-link" href="/posts/first-entry">
+            <header class="post-card-header">
+                <div class="post-card-primary-tag">others</div>
+                <h2 class="post-card-title">Finally, a new blog</h2>
+            </header>
+            <section class="post-card-excerpt">
+                <p>ก่อนอื่น … &hairsp;“สวัสดีผู้อ่านครับ”&hairsp;ผู้เขียนวางแผนจะเขียนบล็อกมาสักพักหนึ่งแล้ว (ก่อนหน้านี้ครั้งล่าสุดที่มีบล็อกก็คือ Windows Live Spaces เมื่อกว่าสิบปีมาแล้ว) จนตอนนี้เพิ่งมีเวลาว่างจากการเล่นเกมมากพอที่จะสร้างบล็อกใหม่นี้ผ …</p>
+            </section>
+        </a>
+
+        <footer class="post-card-meta">
+            <ul class="author-list">
+                <li class="author-list-item">
+                    <div class="author-name-tooltip">Abhabongse Janthong</div>
+                    <a href="/author/abhabongse-janthong" class="static-avatar">
+                        <img class="author-profile-image"
+                             src="/avatars/d59f180139c7ef4544b6f34b97ed942cf4f486a3e833683a9ca1e1b298e18ca8.jpg"
+                             alt="Abhabongse Janthong"
+                        />
+                    </a>
+                </li>
+            </ul>
+            <div class="post-card-byline-content">
+                <span>
+                    Abhabongse Janthong
+                </span>
+                <span class="post-card-byline-date">
+                    <time datetime="2019-05-25T00:00:00+07:00">Sat 25 May 2019</time>
+                    <span class="bull">&bull;</span>
+                    2 min read
+                </span>
+            </div>
+        </footer>
+    </div>
+</article>
+        </div>
+    </div>
+</aside>
+
+
+    <footer class="site-footer outer">
+        <div class="site-footer-content inner">
+            <section class="copyright">
+                <a href="/">Personal Blog</a>
+                &copy;
+2020&hairsp;&ndash;&hairsp;2021
+            </section>
+            <nav class="site-footer-nav">
+                <a href="/">Latest Posts</a>
+                <a href="https://facebook.com/abhabongse" target="_blank" rel="noopener">Facebook</a>
+                <a href="https://twitter.com/abhabongse" target="_blank" rel="noopener">Twitter</a>
+                <a href="https://github.com/abhabongse" target="_blank" rel="noopener">GitHub</a>
+            </nav>
+        </div>
+    </footer>
+</div>
+
+<script src="/theme/js/main.min.js"></script>
+<script>
+    ready(function () {
+        // Replace nav with title on scroll - start
+        Casper.stickyNavTitle({
+            navSelector: '.site-nav-main',
+            titleSelector: '.post-full-title',
+            activeClass: 'nav-post-title-active'
+        });
+        // Replace nav with title on scroll - end
+
+        // Hover on avatar
+        var hoverTimeout;
+        document.querySelectorAll('.author-list-item').forEach(function(listItem) {
+            listItem.addEventListener('mouseover', function(_) {
+                clearTimeout(hoverTimeout);
+                document.querySelectorAll('.author-card').forEach(function(cardItem) {
+                    cardItem.classList.remove('hovered');
+                });
+                listItem.querySelectorAll('.author-card').forEach(function(cardItem) {
+                    cardItem.classList.add('hovered');
+                });
+            });
+            listItem.addEventListener('mouseleave', function(_) {
+                hoverTimeout = setTimeout(function() {
+                    listItem.querySelectorAll('.author-card').forEach(function(cardItem) {
+                        cardItem.classList.remove('hovered');
+                    });
+                }, 800);
+            });
+        });
+    });
+</script>
+</body>
+</html>
